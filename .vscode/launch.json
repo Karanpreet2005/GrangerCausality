@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Reproduction: quick (smoke)",
+      "type": "debugpy", "request": "launch",
+      "program": "${workspaceFolder}/run_reproduction.py",
+      "args": ["--quick"], "console": "integratedTerminal"
+    },
+    {
+      "name": "Reproduction: validation",
+      "type": "debugpy", "request": "launch",
+      "program": "${workspaceFolder}/run_reproduction.py",
+      "args": ["--profile", "validation"], "console": "integratedTerminal"
+    },
+    {
+      "name": "Reproduction: FULL (paper settings)",
+      "type": "debugpy", "request": "launch",
+      "program": "${workspaceFolder}/run_reproduction.py",
+      "args": ["--full"], "console": "integratedTerminal"
+    },
+    {
+      "name": "Reproduction: dry run (plan only)",
+      "type": "debugpy", "request": "launch",
+      "program": "${workspaceFolder}/run_reproduction.py",
+      "args": ["--full", "--dry-run"], "console": "integratedTerminal"
+    }
+  ]
+}

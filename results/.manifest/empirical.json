@@ -1,6 +1,6 @@
 {
   "stage": "empirical",
-  "key": "f1aef3549758525c",
+  "key": "aaffeef4ece031d6",
   "outputs": [
     "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table2_mean_causality__full.csv",
     "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table2_mean_causality__full.md",
@@ -13,9 +13,9 @@
     "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/tables34_all__full.csv",
     "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/tables34_all__full.md"
   ],
-  "completed_at": "2026-09-06 00:40:52",
+  "completed_at": "2026-09-06 00:42:43",
   "meta": {
     "profile": "full",
-    "seconds": 29.17
+    "seconds": 29.96
   }
 }

@@ -58,3 +58,159 @@ def panel_ink_profile(png_path: Path) -> dict:
         "distinct_grey_levels": int(np.unique(img).size),
         "is_colour": False,
     }
+
+
+# --------------------------------------------------------------------- tracing
+#: Panel layout of each figure, and what each panel means.
+#: Figs 1-2 stack DGP1-3; Fig 3 stacks DGP4 under QAR(1) then QAR(2); Fig 4 is a
+#: 2x2 of DGP1-4. Read off the sub-captions in the published figures.
+FIGURE_LAYOUT = {
+    1: {"rows": 3, "cols": 1, "panels": [("dgp", 1), ("dgp", 2), ("dgp", 3)], "qar": 1},
+    2: {"rows": 3, "cols": 1, "panels": [("dgp", 1), ("dgp", 2), ("dgp", 3)], "qar": 2},
+    3: {"rows": 2, "cols": 1, "panels": [("qar", 1), ("qar", 2)], "dgp": 4},
+    4: {"rows": 2, "cols": 2, "panels": [("dgp", 1), ("dgp", 2), ("dgp", 3), ("dgp", 4)]},
+}
+
+#: The x-axis tick labels, read directly off the published figures. The axis is
+#: categorical - the seven ticks are evenly spaced, not positioned by value.
+C_TICKS = (0.00, 0.01, 0.03, 0.06, 0.12, 0.24, 0.50)
+
+#: Curve colours: red is T = 500, black dashed is T = 100.
+T_BY_COLOUR = {"red": 500, "black": 100}
+
+
+def _masks(rgb: np.ndarray) -> dict[str, np.ndarray]:
+    r, g, b = rgb[..., 0].astype(int), rgb[..., 1].astype(int), rgb[..., 2].astype(int)
+    red = (r > 120) & (r - g > 60) & (r - b > 60)
+    black = (r < 110) & (g < 110) & (b < 110)
+    return {"red": red, "black": black & ~red}
+
+
+def _split_panels(rgb: np.ndarray, rows: int, cols: int) -> list[np.ndarray]:
+    """Cut a figure into its sub-panels on the whitespace gutters."""
+    def cuts(profile_dark: np.ndarray, n: int) -> list[tuple[int, int]]:
+        blank = profile_dark == 0
+        runs, start = [], None
+        for i, is_blank in enumerate(blank):
+            if is_blank and start is None:
+                start = i
+            elif not is_blank and start is not None:
+                runs.append((start, i)); start = None
+        if start is not None:
+            runs.append((start, len(blank)))
+        interior = [r for r in runs if r[0] > 0 and r[1] < len(blank)]
+        interior.sort(key=lambda r: r[1] - r[0], reverse=True)
+        seps = sorted((r[0] + r[1]) // 2 for r in interior[: n - 1])
+        bounds, prev = [], 0
+        for sp in seps:
+            bounds.append((prev, sp)); prev = sp
+        bounds.append((prev, len(blank)))
+        return bounds
+
+    dark = (rgb.mean(axis=2) < 200)
+    row_bounds = cuts(dark.sum(axis=1), rows) if rows > 1 else [(0, rgb.shape[0])]
+    panels = []
+    for r0, r1 in row_bounds:
+        strip = rgb[r0:r1]
+        col_bounds = (cuts((strip.mean(axis=2) < 200).sum(axis=0), cols)
+                      if cols > 1 else [(0, strip.shape[1])])
+        for c0, c1 in col_bounds:
+            panels.append(strip[:, c0:c1])
+    return panels
+
+
+def _plot_box(panel: np.ndarray) -> tuple[int, int, int, int] | None:
+    """Locate the axes frame as the longest full-length dark row/column pair."""
+    dark = panel.mean(axis=2) < 150
+    h, w = dark.shape
+    rows = np.where(dark.sum(axis=1) > 0.75 * w)[0]
+    cols = np.where(dark.sum(axis=0) > 0.60 * h)[0]
+    if rows.size < 2 or cols.size < 1:
+        return None
+    return int(rows.min()), int(rows.max()), int(cols.min()), int(cols.max())
+
+
+def trace_figure(png_path: Path, figure: int) -> "list[dict]":
+    """Read rejection frequencies off one figure.
+
+    At each of the seven tick positions the coloured pixels are collected and
+    converted to data coordinates. The three (or two) near-coincident curves in a
+    colour are not separated - they are reported as a min/mean/max band, which is
+    the honest resolution the raster supports.
+    """
+    from PIL import Image
+
+    layout = FIGURE_LAYOUT[figure]
+    rgb = np.asarray(Image.open(png_path).convert("RGB"))
+    panels = _split_panels(rgb, layout["rows"], layout["cols"])
+
+    rows: list[dict] = []
+    for idx, panel in enumerate(panels):
+        if idx >= len(layout["panels"]):
+            break
+        kind, value = layout["panels"][idx]
+        dgp = value if kind == "dgp" else layout.get("dgp")
+        qar = value if kind == "qar" else layout.get("qar")
+
+        box = _plot_box(panel)
+        if box is None:
+            continue
+        top, bottom, left, right = box
+        masks = _masks(panel)
+
+        # Strip the furniture: the axes frame and the dashed 5% reference line are
+        # black too, and at the first tick the y axis itself would otherwise be read
+        # as a curve spanning the whole panel.
+        h_box, w_box = bottom - top + 1, right - left + 1
+        for colour in masks:
+            m = masks[colour].copy()
+            m[:top + 1, :] = False
+            m[bottom:, :] = False
+            m[:, :left + 1] = False
+            m[:, right:] = False
+            inner = m[top:bottom + 1, left:right + 1]
+            inner[inner.sum(axis=1) > 0.40 * w_box, :] = False   # horizontal rules
+            inner[:, inner.sum(axis=0) > 0.60 * h_box] = False   # vertical rules
+            m[top:bottom + 1, left:right + 1] = inner
+            masks[colour] = m
+
+        for i, c in enumerate(C_TICKS):
+            x = left + round(i * (right - left) / (len(C_TICKS) - 1))
+            x = min(max(x, left + 3), right - 3)      # keep the sample off the frame
+            for colour, mask in masks.items():
+                lo_x, hi_x = max(left + 1, x - 3), min(right, x + 4)
+                ys = np.where(mask[top:bottom + 1, lo_x:hi_x].any(axis=1))[0]
+                if ys.size == 0:
+                    continue
+
+                # Axis text and sub-captions are black too, and the T=100 curves are
+                # dashed, so pixels arrive in several clumps. Keep the largest clump.
+                gaps = np.where(np.diff(ys) > 8)[0]
+                clusters = np.split(ys, gaps + 1)
+                ys = max(clusters, key=len)
+
+                vals = 1.0 - ys / (bottom - top)          # y axis runs 0.0 to 1.0
+                spread = float(vals.max() - vals.min())
+                rows.append({
+                    "figure": figure, "dgp": dgp, "qar_order": qar,
+                    "T": T_BY_COLOUR[colour], "c": c,
+                    "paper_min": float(vals.min()),
+                    "paper_mean": float(vals.mean()),
+                    "paper_max": float(vals.max()),
+                    "spread": spread,
+                    "n_pixels": int(ys.size),
+                    # The 3 (or 2) near-coincident curves in a colour sit within a few
+                    # percent of each other; a wider spread means the trace caught
+                    # something else and should not be used as a target.
+                    "reliable": spread <= 0.15,
+                })
+    return rows
+
+
+def trace_all(pdf_path: Path, out_dir: Path) -> "list[dict]":
+    saved = extract_figure_images(pdf_path, out_dir)
+    rows = []
+    for fig, paths in saved.items():
+        main = max(paths, key=lambda p: p.stat().st_size)   # the real plot, not logo bits
+        rows.extend(trace_figure(main, fig))
+    return rows
