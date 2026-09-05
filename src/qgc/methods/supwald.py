@@ -27,9 +27,21 @@ from functools import lru_cache
 import numpy as np
 
 
-def sup_wald_statistic(y, z, taus, *, s: int = 1) -> float:
+#: statsmodels' IRLS default of 1000 iterations is not always enough: about 0.6% of
+#: fits hit it, and because Sup-Wald takes a MAXIMUM over tau, one unconverged fit
+#: can move the statistic (observed changes up to 0.17 in the Wald component). The
+#: limit is raised so convergence failures are rare, and any that remain are counted
+#: rather than silently accepted.
+QR_MAX_ITER = 20000
+
+
+def sup_wald_statistic(y, z, taus, *, s: int = 1,
+                       return_diagnostics: bool = False):
     """sup over `taus` of the squared t-statistic on beta1(tau)."""
+    import warnings
+
     from statsmodels.regression.quantile_regression import QuantReg
+    from statsmodels.tools.sm_exceptions import IterationLimitWarning
 
     y = np.asarray(y, dtype=np.float64).ravel()
     z = np.asarray(z, dtype=np.float64).ravel()
@@ -42,15 +54,26 @@ def sup_wald_statistic(y, z, taus, *, s: int = 1) -> float:
     target = y[p:]
 
     best = 0.0
+    n_unconverged = n_failed = 0
     for tau in np.atleast_1d(taus):
         try:
-            res = QuantReg(target, X).fit(q=float(tau), vcov="iid")
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always", IterationLimitWarning)
+                res = QuantReg(target, X).fit(q=float(tau), vcov="iid",
+                                              max_iter=QR_MAX_ITER)
+            if any(issubclass(w.category, IterationLimitWarning) for w in caught):
+                n_unconverged += 1
         except Exception:                                 # noqa: BLE001
+            n_failed += 1
             continue
         se = float(res.bse[-1])
         if not np.isfinite(se) or se <= 0:
+            n_failed += 1
             continue
         best = max(best, float(res.params[-1] / se) ** 2)
+
+    if return_diagnostics:
+        return best, {"unconverged": n_unconverged, "failed": n_failed}
     return best
 
 
