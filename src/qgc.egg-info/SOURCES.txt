@@ -1,0 +1,6 @@
+pyproject.toml
+src/qgc.egg-info/PKG-INFO
+src/qgc.egg-info/SOURCES.txt
+src/qgc.egg-info/dependency_links.txt
+src/qgc.egg-info/requires.txt
+src/qgc.egg-info/top_level.txt

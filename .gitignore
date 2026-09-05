@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# Raw downloads and derived artefacts are reproducible from source; keep the tree light.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+logs/*
+!logs/.gitkeep
+results/figures/*
+!results/figures/.gitkeep
+
+# Results tables and manifests ARE tracked: they are the reproduction record.
+!results/tables/
+!results/.manifest/

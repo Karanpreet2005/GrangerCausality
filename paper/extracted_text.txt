@@ -1,0 +1,1170 @@
+
+=============== PAGE 1 ===============
+ 
+
+=============== PAGE 2 ===============
+ECONOMETRIC REVIEWS
+2018, VOL. 37, NO. 8, 850–866
+http://dx.doi.org/10.1080/07474938.2016.1172400Testing for Granger-causality in quantilesVictor TrosterDepartment of Applied Economics, Universitat de les Illes Balears, SpainABSTRACTThis paper proposes a consistent parametric test of Granger-causality in quan-
+tiles. Although the concept of Granger-causality is defined in terms of the
+conditional distribution, most articles have tested Granger-causality using con-
+ditional mean regression models in which the causal relations are linear. Rather
+than focusing on a single part of the conditional distribution, we develop
+a test that evaluates nonlinear causalities and possible causal relations in
+all conditional quantiles, which provides a sufficient condition for Granger-
+causality when all quantiles are considered. The proposed test statistic has
+correct asymptotic size, is consistent against fixed alternatives, and has power
+against Pitman deviations from the null hypothesis. As the proposed test statis-
+tic is asymptotically nonpivotal, we tabulate critical values via a subsampling
+approach. We present Monte Carlo evidence and an application considering
+the causal relation between the gold price, the USD/GBP exchange rate, and
+the oil price.KEYWORDSGranger-causality; omnibus
+test; quantile regression;
+subsamplingJEL CLASSIFICATIONC12; C19; C221. IntroductionThe Granger-causality definition proposed by Granger (1969) is the fundamental concept for studying
+dynamic relationships between time series. According to this definition, letting t denote time, a series
+Ztis said to Granger-cause Yt +lif Ztincorporates information about the predictability for Yt +lencompassed nowhere else in some large information set, which includes Yt −j, j ≥ 0. By using temporal
+precedence relationships, the notion of Granger-causality differs from the causal concepts based on
+controlled variation that are present in Haavelmo (1944), Holland ( 1986), Pearl ( 1988), Heckman
+and Vytlacil (2007), among others. Although time series Granger-causality tests lack the analysis of
+counterfactuals, they are straightforward to implement and do not suffer from the inferential problem of
+defining assumptions a priori required in a counterfactual analysis (Hoover, 2012). While the concept of
+Granger-causality is defined in terms of the conditional distribution, most articles have tested Granger-
+causality using conditional mean regression models in which the causal relations are linear. As a result,
+a conditional mean regression model cannot assess a tail causal relation or nonlinear causalities.
+This article proposes a parametric omnibus test of Granger-causality in quantiles. The proposed
+approach allows us to evaluate nonlinear causalities, causal relations in conditional quantiles, and
+provides a sufficient condition for Granger-causality when all quantiles are considered. The quantile
+regression approach provides a more detailed and flexible analysis of the entire conditional distribution
+than the conditional mean-regression analysis, that focus only on a single part of the conditional
+distribution. In addition, a quantile causal relation may co ntrastwithacausalityinthemeanofthe
+conditional distribution. While a relationship with mean-causality shis at least a non-negligible number
+of quantiles, a tail causal relation does not necessarily imply a causality in the mean. For example, Lee
+and Yang ( 2012) show that money-income Granger-causality in the conditio nalmeanisquiteweakand
+unstable, while it is significant in tail quantiles in most data sets. Finally, the proposed test is equivalentCONTACT Victor Trostervictor.troster@uib.esDepartment of Applied Economics, Universitat de les Illes Balears, Cra. de
+Valldemossa km 7.5, Palma de Mallorca, 07122, Spain.
+Color versions of one or more of the figures in the article can be found online at www.tandfonline.com/lecr.© 2016 Taylor & Francis Group, LLC
+
+=============== PAGE 3 ===============
+ECONOMETRIC REVIEWS851to testing Granger-causality in distribution when all quantiles are considered. Rather than checking
+a necessary condition for Granger-causality, our approach analyzes a continuous space of conditional
+quantile functions that fully characterizes the concept of Granger-causality in distribution.
+Our test is an application of the method proposed by Escancia no and Velasco ( 2010) in the context of
+Granger-causality. To our knowledge, testing for Granger-causality in quantiles by parametric methods
+in a flexible specification setting has not been analyzed in the literature before. Our test statistic is a
+Cramr-von Mises (CvM) functional norm of quantile-marked empirical processes that characterizes
+the null hypothesis of Granger noncausality. We reject the null hypothesis that past Ztdoes not Granger-
+cause future Ytwhenever our test statistic is significantly different from zero, for any quantile over a
+continuum of quantile levels.
+As the proposed test statistic is asymptotically nonpivota l and depends on the data generating
+process, we tabulate critical values via a subsampling method. The subsampling approach allows us to
+apply nonlinear conditional quantile regression models. Although our proposed test is computationally
+demanding, it has many interesting theoretical features: it does not require the choice of smoothing
+parameters, is consistent against all fixed alternatives, and is asymptotically strictly unbiased against a
+sequence of Pitman's local alternatives.
+Chuang et al. ( 2009)andYangetal.( 2014) estimated the quantile causal effects by quantile regressions
+and tested the hypothesis of Granger noncausality by performing the Sup-Wald test of Koenker and
+Machado (1999) in all quantiles. We extend their method in two ways. First, our test provides an omnibus
+type of property: it requires only a model for the marginal quantile regression (under the null of no
+causality), and then searches for rejections of the null hypothesis in every direction, while the Sup-Wald
+test requires a particular model specification for the quantile regression under the alternative hypothesis
+of causality. In addition, we allow for nonlinear specifications of the quantile regression model under
+the null. Many causal relations are nonlinear, see for insta nce Bouezmarni et al. (2012). Therefore, a test
+based on a linear quantile regression model cannot be applied to testing nonlinear causality.
+Regarding nonparametric approaches, Hong et al. (2009) proposed a nonparametric test of causality
+in Value-at-Risk (VaR), but their method provides only a necessary condition for Granger-causality.
+Jeong et al. ( 2012) extended the idea of Zheng (1998) to transform conditional quantile restrictions
+into conditional mean restrictions to testing causality in quantiles; more recently, Taamouti et al.
+(2014) proposed a nonparametric test for conditional density based Granger-causality. However, both
+testing procedures of the Granger-causality null hypothesis require beta-mixing conditions in the data
+generating process and are based on kernel methods. We provide two advantages. First, except for the
+application of the subsampling, our proposed causality test does not need mixing assumptions, and it
+requires only α -mixing assumptions for the validity of the subsampling, which are less restrictive than
+beta-mixing conditions. Moreover, our approach does not require the choice of smoothing parameters.
+Eventually, the misspecification of the parametric quantile regression model may affect the pattern of
+causality between the variables. As nonparametric estimation is model-free, nonparametric tests are
+robust to misspecification of the quantile regression. However, our parametric test is able to identify
+all the patterns of causality in the conditional distributi on for flexible linear and nonlinear models,
+providing a clear interpretation of the causal relations. In sum, we believe that the proposed approach is
+a useful alternative to existing tests of Granger-causality in quantiles.
+As further contributions, we investigate the finite sample performance of our method on simulated
+data, and we illustrate the empirical applicability of our setting by verifying the causal relation between
+the gold price, the USD/GBP exchange rate, and the oil price.
+The rest of the article is organized as follows. In Section 2, we propose a test statistic for the null
+hypothesis of Granger noncausality in quantiles. In Section 3, we derive the asymptotic limit distribution
+of our test statistic under the null and the alternative hypotheses. We also prove that our test statistic
+has nontrivial power against
+√T -local alternatives, with T the sample size, and we theoretically justify
+the validity of the subsampling approach in our framework. Sec tion 4 presents Monte Carlo simulation
+results. In Section 5, we show an empirical application of our proposed test, and S ection 6 concludes the
+article.
+
+=============== PAGE 4 ===============
+852V. TROSTER2. An omnibus test for Granger-causality in quantiles2.1. Testing problem
+Let {
+(
+Yt, Zt)
+}t ∈Zbe a strictly stationary and ergodic time series process defined on some probability
+space (, F , P ). Suppose Yt∈ R is the dependent variable and there is an explanatory vector It
+(
+IY′t, IZ′t)′∈ Rd, d = s + q, where IY
+t:=
+(
+Yt −1, ... Yt −s)′∈ Rsand IZ
+t:=
+(
+Zt −1, ... Zt −q)′∈ Rq, for
+A′denoting the transpose matrix of A. Let FY(y | IY
+t, IZ
+t) and FY(y | IY
+t) be the conditional distribution
+functions of Ytgiven (IY
+t, IZ
+t) and IY
+t, respectively. We assume they are continuous for all y ∈ R.
+According to Granger (1969), a series Ztdoes not Granger-cause another series Ytif past Ztdoes not
+help to predict future Ytgiven past Yt. We characterize the null hypothesis of Granger noncausalit y from
+Ztto Ytas follows:
+HZ ↛ Y
+0: FY(
+y
+|
+|
+IY
+t, IZ
+t)
+= FY(
+y
+|
+|
+IY
+t)
+, for all y ∈ R. (1)
+We denote the null hypothesis of (1) as Granger noncausality in distribution. Since the estima tion
+of the conditional distribution may be complicated in practice, many articles have tested Granger
+noncausality in mean, which is only a necessary condition fo r( 1). In this case, Ztdoes not Granger
+cause Ytin mean if
+E
+(
+Yt|
+|
+IY
+t, IZ
+t)
+= E
+(
+Yt|
+|
+IY
+t)
+a.s., (2)
+where E
+(
+Yt|
+|
+IY
+t, IZ
+t)
+and E
+(
+Yt|
+|
+IY
+t)
+denote the mean of FY(· | IY
+t, IZ
+t) and FY(· | IY
+t), respectively.
+Granger noncausality in mean of (2) can be easily extended to higher order moments, see for exam ple
+Cheung and Ng (1996). However, causality in mean (or in higher moments) overlooks the dependence
+that may appear in conditional tails of the distribution. On the other hand, the Granger noncausality
+distribution of ( 1) does not inform us about the level where the causality exists, if (1) is rejected. Thus, we
+propose to test Granger noncausality in conditional quantiles, since it allows us to determine the pattern
+of causality and it provides a sufficient condition for testing Granger noncausality in distribution of (1),
+as the quantiles completely characterize a distribution. Let QY ,Z
+τ(
+·
+|
+|
+IY
+t, IZ
+t)
+and QY
+τ(
+·
+|
+|
+IY
+t)
+denote the
+τ -quantiles of FY(· | IY
+t, IZ
+t) and FY(· | IY
+t) respectively. We can equally test ( 1) as
+HQC :Z ↛ Y
+0: QY ,Z
+τ(
+Yt|
+|
+IY
+t, IZ
+t)
+= QY
+τ(
+Yt|
+|
+IY
+t)
+, a.s. for all τ ∈ T , (3)
+where T is a compact set such that T ⊂[ 0, 1] and the conditional τ -quantiles of Ytsatisfy the following
+restrictions:
+Pr
+{
+Yt≤ QY
+τ(
+Yt|
+|
+IY
+t)
+|
+|
+IY
+t}
+:= τ , a.s. for all τ ∈ T ,
+Pr
+{
+Yt≤ QY ,Z
+τ(
+Yt|
+|
+IY
+t, IZ
+t)
+|
+|
+IY
+t, IZ
+t}
+:= τ , a.s. for all τ ∈ T . (4)
+Given an explanatory vector It, we have Pr {Yt≤ Qτ(Yt| It) | It}= E
+{[
+Yt≤ Qτ(Yt| It)
+]
+| It}
+, where(a ≤ b) is an indicator function of the event that a is less or equal than b. Thus ( 3) is equivalent to
+E
+[
+Yt≤ QY ,Z
+τ(
+Yt|
+|
+IY
+t, IZ
+t)]
+|
+|
+|
+IY
+t, IZ
+t
+= E
+[
+Yt≤ QY
+τ(
+Yt|
+|
+IY
+t)]
+|
+|
+|
+IY
+t, IZ
+t
+,
+a.s. for all τ ∈ T , (5)
+where the le-hand side of (5) is equal to the τ -quantile of FY(
+· | IY
+t, IZ
+t)
+by definition. We postu-
+late a parametric model to estimate the τ th quantile of FY(
+· | It)
+, where we assume that Qτ(
+· | It)
+is correctly specified by a parametric model m(·, θ (τ )) belonging to a family of functions M =
+{
+m(·, θ (τ ))
+|
+|
+θ( ·) : τ → θ (τ ) ∈ ⊂ Rp, for τ ∈ T ⊂[ 0, 1]
+}
+. Let B ⊂ M be a family of uniformly
+bounded functions τ → θ (τ ) such that θ (τ ) ∈ ⊂ Rp. Then, under the null hypothesis in (3), the
+τ -conditional quantile QY
+τ(
+· | IY
+t)
+is correctly specified by a parametric model m(IY
+t, θ0(τ )), for some
+θ0∈ B , using only the restricted information set IY
+t, and we redefine our testing problem in (3) as
+HZ ↛ Y
+0: E
+[(
+Yt≤ m
+(
+IY
+t, θ0(τ )
+))
+|
+|
+IY
+t, IZ
+t]
+= τ , a.s. for all τ ∈ T , (6)
+
+=============== PAGE 5 ===============
+ECONOMETRIC REVIEWS853versus
+HZ ↛ Y
+A: E
+[(
+Yt≤ m
+(
+IY
+t, θ0(τ )
+))
+|
+|
+IY
+t, IZ
+t]
+̸= τ , for some τ ∈ T , (7)
+where m(IY
+t, θ0(τ )) is the only element of M that correctly specifies the true conditional quantile
+QY
+τ(
+· | IY
+t)
+, for all τ ∈ T .Werewrite(6)asHZ ↛ Y
+0: E
+[
+τ ,t(
+θ0)
+| IY
+t, IZ
+t]
+= 0 almost surely, for all τ ∈ T ,
+to simplify notation, where τ ,t(
+θ0)
+ τ(
+Yt− m
+(
+IY
+t, θ0(τ )
+))
+for a function τ(ε) :=(ε ≤ 0) − τ .
+By appropriately choosing a parametric family of functions {g
+(
+It, ω
+)
+: ω ∈ W ⊂ Rr},
+where It=
+(
+IY′t, IZ′t)′and W is a compact subset of Rr, for r ≤ d , we may restate the null
+hypothesis (6) as a sequence of unconditional moment restric tions E
+[
+τ ,t(
+θ0)
+g
+(
+It, ω
+)
+]
+= 0, for all
+τ ∈ T and for all measurable functions g
+(
+It, ω
+)
+such that E
+[
+|g
+(
+It, ω
+)
+|
+]
+< ∞ (see Bierens, 1982;
+Escanciano, 2006; Stinchcombe and White, 1998). For example, two possible choices of weighting
+functions that satisfy the previous equivalence are g
+(
+It, ω
+)
+=(It≤ ω ), for ω ∈ [−∞, ∞]d, and
+g
+(
+It, ω
+)
+= exp
+(
+iω′It)
+, for ω ∈ Rd, where i =
+√−1 is the imaginary root. We could also use any
+parametric family of weighting functions proposed in Kuan a ndLee( 2004) and Escanciano ( 2006).
+However, unreported simulations suggested that the weighting function g
+(
+It, ω
+)
+:= exp
+(
+iω′It)
+=
+exp
+[
+i
+(
+ω1(
+Yt −1, Zt −1)′+ ... + ωr(
+Yt −r, Zt −r)′)]
+, for all ω ∈ Rrwith r ≤ d , outperforms in terms of
+size and power other alternative parametric family of functions. Therefore, by Lemma 1 of Escanciano
+(2006), we characterize the null hypothesis (6) by the following infinite set of unconditional moment
+restrictions
+E
+[
+τ ,t(
+θ0)
+exp
+(
+iω′It)]
+= 0, for all ω ∈ Rdand for all τ ∈ T , (8)
+where i =
+√−1istheimaginaryroot.Ourteststatisticisbasedonthesam ple analog of the moment
+restriction of (8)
+vT(ω , τ) :=
+1√TT∑t =1τ ,t(
+θT)
+exp
+(
+iω′It)
+, (9)
+where θT(τ ) is a
+√T -consistent estimator of θ0(τ ), for all τ ∈ T . Our proposed framework allows for any
+√T -consistent estimator of θT(τ ) satisfying some mild conditions (described in the next section) such as
+the quantile regression estimator by Koenker and Bassett (1978), the quantile autoregressive estimator
+by Koenker and Xiao (2006), and the CAViaR estimator by Engle and Manganelli (2004). Given our
+sample {
+(
+Yt, Zt)
+}t ∈Z, we define vT(ω , τ) as the quantile marked-residual process, indexed by ω ∈ Rdand τ ∈ T . Our proposed test statistic STis a CvM functional norm of vT(ω , τ) defined as
+ST:=
+∫T∫W|
+|
+vT(ω , τ)
+|
+|2dFω(ω )dFτ(τ ), (10)
+where Fω(·) and Fτ(·) are some integrating measures on W and T , respectively, and W is a compact
+subset of Rdcontaining the origin. Following Epps and Pulley (1983), three considerations influence the
+choice of Fω(·). The first is that it should assign high weight where
+|
+|
+vT(ω , τ)
+|
+|
+is large under the alternative
+hypothesis. The second is that Fω(·) should give high weight where the statistic vT(ω , τ) is a relatively
+precise estimator of E
+[
+τ ,t(
+θ0)
+exp
+(
+iω′It)]
+.Itcanbeshownthatthisprecisionisgreatestneartheorig in
+(Epps and Pulley, 1983). Thus, it seems that Fω(·) should assign high weight in some interval around
+the origin. A final practical consideration is that Fω(·) be such that STin (10) have a closed form. For
+example, the normal or exponential cumulative distribution functions (CDF) are weighting functions
+that satisfy these conditions (Kuan and Lee, 2004). Following Escanciano and Velasco (2006), we take
+Fω(·) astheCDFofad -variate standard normal random vector. This choice simplifies the computation
+of ST, avoiding numerical integration, and satisfies the other two requirements of the weighting function.
+Hong ( 1999) shows that the power performance for similar tests to STare not too sensitive to the choice
+of Fω(·).
+
+=============== PAGE 6 ===============
+854V. TROSTEROnce we take Fω(·) as the CDF of a standard normal random variable, the vector of weights ω ∈ Rdis
+drawn from a standard normal distribution and the test stati stic in (10) can be estimated using its sample
+counterpart. We choose Fτ(·) as a uniform discrete distribution over a grid of T in n equidistributed
+points, Tn={ τj}n
+j=1. Let be the T × n matrix with elements ψi,j= τj(
+Yi− m
+(
+IY
+i, θT(τj)
+))
+. Then,
+our test statistic SThas the form
+ST=
+1Tnn∑j=1|
+|
+|
+ψ′
+·jW ψ· j|
+|
+|
+, (11)
+where W is the T × T matrix with elements wt ,s= exp
+[
+−0.5
+(
+It− Is)2]
+, and ψ· jdenotes the jth column
+of ,seeKuanandLee( 2004) and Escanciano and Velasco ( 2006) for more details. We choose the
+CvM functional norm because unreported simulations suggested that the CvM type statistics provide
+better size and power results than the ones implied by other continuous functional norms such as the
+Kolmogorov–Smirnov functional norm. Under the assumptions described in the next section, the test
+statistic STweakly converges to zero under the null hypothesis (6), and to a probability limit different
+than zero under the alternative (7). We reject the null hypothesis whenever we observe “large” values
+of ST.
+2.2. Subsampling critical values
+As the null distribution of test statistic STis asymptotically nonpivotal and depends on the data
+generating process (DGP), we propose a subsampling procedure to calculate critical values for STof ( 10).
+Horowitz ( 1998) and Sakov and Bickel ( 2000), among others, have proposed resampling methods for
+quantile regression models, but their approach is valid only for independent and identically distributed
+(i.i.d.) data. Subsampling is a resampling method that provides asymptotic inference for general quantile
+regression models in a time series context, see Politis et al .( 1999) and Chernozhukov and Fernndez-Val
+(2005). Under the subsampling method, critical values are obtained by mimicking the test statistic STof
+(10).
+Since the asymptotic properties of the subsampling tests depend on the choice of the subsample
+size b, there are different rules proposed in the literature for choosing the subsample size (see Politis
+et al., 1999; Sakov and Bickel, 2000). Whereas Politis et al. (1999) derived calibration and minimum
+volatility methods for picking the optimal subsample size, Sakov and Bickel ( 2000) suggested choosing
+a subsample size b =
+[
+kT2/5]
+, where [·] is the integer part of a number, k is a constant parameter, and
+T is the size of sample. Our simulations indicated that the subsample size proposed in Sakov and Bickel
+(2000) works well in our framework. Therefore, we follow the approach o fSakovandBickel( 2000) and
+choose a subsample of size b =
+[
+kT2/5]
+, for different values of k. Section 4 shows that the subsampling
+statistics yields good inference for different choices of th e constant k.
+Although some authors recommend the use of recentering in subsampling (see, e.g., Chernozhukov
+and Fernndez-Val, 2005), unreported simulations suggest that the noncentered subsampling test
+statistic performs better than the recentered one, and thus we omit it. To describe the calculation of
+the subsampling critical values, we write the empirical process vT(ω ; τ) for the test statistic as a function
+of the data {Xt=
+(
+Yt, Zt)
+}t ∈Z, vT(ω ; τ) = vT(X1, ... , XT; τ) . We describe the algorithm for computing
+a subsampling realization of our test statistic STin two steps.
+1. Given a time series {Xt=
+(
+Yt, Zt)
+} of sample size T , construct B = T − b + 1 subsamples of
+size b of the form {Xi, ... , Xi+b−1}. For each ith subsample, i ≤ B, compute the inference process
+vb,i(Xi, ... , Xi+b−1; τ) . Let vT(ω ; τ) vT(X1, ... , XT; τ) be the inference process (9) computed over
+the entire sample T ; denote by vb,i(ω ; τ) vb,i(Xi, ... , Xi+b−1; τ) the inference process computed
+over the ith subsample of data, and define
+Sb,i
+∫T∫W|
+|
+vb,i(ω , τ)
+|
+|2dFω(ω )dFτ(τ ),
+where Sb,iis our test statistic computed with the ith subsample {Xi, ... , Xi+b−1} of size b.
+
+=============== PAGE 7 ===============
+ECONOMETRIC REVIEWS8552. As each subsample of size b is taken without replacement from the original data, the subsa mple b is
+indeed a sample of size b from the true model. Define G(x ) Pr
+(
+ST≤ x
+)
+as the CDF of our test
+statistic. Estimate G(x ) by
+^
+G(x ) = B−1∑B
+i=1(
+Sb,i≤ x
+)
+. Obtain the critical values as the (1 − τ) th
+quantile of
+^
+G ,thatiscT ,b(1 − τ) =
+^
+G−1(1 − τ) . Finally, reject the null hypothesis (6) if ST> cT ,b(1 − τ) .
+As we are dealing with quantile regression models, we implement the subsampling above over a
+grid of quantiles Tn={ τj}n
+j=1in n equidistributed points in place of T . The asymptotic theory of the
+subsampling test statistic allows for n →∞ as the sample size T grows to infinity and the grid Tngenerated independently from a distribution over T , but for practical considerations we considered a
+deterministic grid Tnwith fixed n in this article.3. Asymptotic theoryIn this section, we derive the asymptotic distributions of o ur test statistic STunder the null and alternative
+hypothesis. We consider the process vT(
+ω , τ
+)
+of ( 9) as a mapping from (, F , P ) taking values in
+∞(
+W × T
+)
+, that is the set of all complex-valued uniformly bounded functions defined with the
+supremum metric, d∞, and Bd∞is its Borel σ -algebra. Hereaer “⇒ ” denotes the weak convergence on
+(
+Bd∞, d∞)
+, and C is a fixed constant. Let Ft= σ
+(
+IY
+t, IY
+t −1, ...
+)
+be the σ -field generated up to time t . We
+define the τ -quantile innovation, for each t ∈ Z , as εt(τ ) := Yt− Qτ(
+IY
+t)
+and the parametric quantile
+error as et(
+θ (τ )
+)
+:= Yt− m
+(
+IY
+t, θ (τ )
+)
+. In addition, fxdenotes the density function of a conditional
+distribution function Fx. All limits are taken as T →∞ , where T is the sample size. We maintain the
+following main assumptions to analyze the asymptotic behavior of our test statistic.
+Assumption 1. {
+(
+Yt, Zt)
+}t ∈Zis a strictly stationary and ergodic process, with E
+
+|
+|
+IY
+0|
+|2
+< C. Under
+HZ ↛ Y
+0of (6), {τ ,t(
+θ0(τ )
+)
+, Ft} is a martingale difference sequence for all τ ∈ T . The parametric family
+m(· , θ0(τ )) is nondecreasing in τ a.s. The family of distributions functions {Fx, x ∈ Rd} has Lebesgue
+densities {fx, x ∈ Rd} that are equicontinuous and uniformly bounded away from zer oforthequantilesof
+interest.
+Assumption 2. For each θ1∈ B , we have as follows:
+(a) There exists a vector of functions gt −1: → Rd, for gt −1(θ1(τ )) Ft −1−measurable for each t ∈ Z
+satisfying, for all k < ∞,
+sup1≤t ≤T , ‖θ1−θ2‖B≤kT−1/2T1/2‖m(IY
+t, θ2) − m(IY
+t, θ1) − (θ2− θ1)′gt −1(θ1)‖B= op(1).
+(b) For all sufficiently small δ> 0,
+E
+
+sup‖θ1−θ2‖B≤δ|
+|(Yt≤ m(IY
+t, θ1(τ ))) −(Yt≤ m(IY
+t, θ2(τ )))
+|
+|
+
+≤ C δ , for all τ ∈ T ,
+and
+E
+
+sup|τ1−τ2|≤ δ|
+|
+m(IY
+t, θ1(τ1)) − m(IY
+t, θ1(τ2))
+|
+|
+
+≤ C δ .
+(c) Uniformly in τ ∈ T ,E
+|
+|
+gt −1(θ1(τ ))
+|
+|2< ∞, and uniformly in (x′, τ)′∈ W × T ,
+|
+|
+|
+|
+1TT∑t =1gt −1(θ0(τ )) exp
+(
+iω′It)
+fIY
+t(m(IY
+t, θ0))
+− E
+
+gt −1(θ0(τ )) exp
+(
+iω′It)
+fIY
+t(m(IY
+t, θ0))
+
+|
+|
+|
+|
+= op(1).
+
+=============== PAGE 8 ===============
+856V. TROSTERAssumption 3. Let N[·](
+δ , G , ‖.‖B)
+be the δ -bracketing number of a class of functions G with respect to a
+norm ‖ · ‖. The parametric space is compact in Rp. The true parameter θ0(τ ) belongs to the interior of
+ for each τ ∈ T , and θ0∈ B . The class B satisfies
+∫∞
+0(
+log
+(
+N[·](
+δ2, B , ‖.‖B)))1/2d δ< ∞.
+Assumption 4. The estimator θTsatisfies that Pr
+(
+θT∈ B
+)
+→ 1 as T →∞ , and the asymptotic expansion
+under HZ ↛ Y
+0of (6), uniformly in τ ∈ T ,
+QT(τ ) =
+√T
+(
+θT(τ ) − θ0(τ )
+)
+=
+1√TT∑t =1τ(
+Yt, IY
+t, θ0(τ )
+)
++ op(1),
+where E
+[
+τ(
+Y1, IY
+0, θ0(τ )
+)]
+= 0,E
+[
+τ(
+Y1, IY
+0, θ0(τ )
+)
+′
+τ(
+Y1, IY
+0, θ0(τ )
+)]
+exists, and it is positive definite,
+and E
+[
+τ(
+Yt, IY
+t, θ0(τ )
+)
+τ ,s(θ0)
+]
+= 0 if t ̸= s. As a process in ∞(T ),QT(τ ) converges weakly to a
+Gaussian process Q (·) with zero mean and covariance function
+KQ(τ1, τ2) = limT →∞1TT∑t =1
+T∑s =1E
+[
+τ1(
+Yt, IY
+t, θ0(τ1)
+)
+× τ2(
+Ys, IY
+s, θ0(τ2)
+)]
+.
+Assumption 5. Under the alternative hypothesis HZ ↛ Y
+Aof (7) we have as follows:
+(a) There exists a θ1∈ B such that ‖θT− θ1‖B= op(1);
+(b) E
+{
+τ ,t(
+θ0)
+exp
+(
+iω′It)}
+̸= 0 in a subset with positive Lebesgue measure on W × T .
+Assumptions 1–5 are very similar to Assumptions A1–A5 of Escanciano and Velasco (2010), but
+we consider most of them in a context of a restricted information set IY
+trather than in the full
+one It (IY
+t, IZ
+t). Assumptions 1–3 provide conditions for the validity of a functional central limit
+theorem for empirical processes in the dependent data case. Assumption 4 is required to guarantee
+the asymptotic distribution of our test when nonlinear quantile regression models are applied, see
+for example Mukherjee (1999). Assumption 5 provides a sufficient condition for the estimat or θTto
+be consistent under a fixed alternative hypothesis, see Angr ist et al. ( 2006) for conditions to satisfy
+Assumption 5(a); Assumption 5(b) holds if Itis bounded. Theorem 1 below is an application of
+Theorems 1–3 of Escanciano and Velasco (2010) and the continuous mapping theorem.
+Theorem 1. Under Assumptions 1–5, we have as follows:
+(i) Under the null hypothesis HZ ↛ Y
+0of (6),
+ST
+d→
+∫T∫W|
+|
+G1(ω , τ)
+|
+|2dFω(ω )dFτ(τ ),
+where G1is a tight mean zero Gaussian process.
+(ii) Under the alternative hypothesis HZ ↛ Y
+Aof (7), there exists an ε> 0 such that
+limT →∞Pr
+(
+ST>ε
+)
+= 1.
+Theorem 1 shows that the asymptotic null distribution of STis a functional of a zero-mean Gaussian
+process G1. By Theorem 1, we reject the null hypothesis HZ ↛ Y
+0whenever STis significantly positive.
+3.1. Local alternatives and subsampling validity
+Now we analyze the asymptotic distribution of STagainst a sequence of Pitman's local alternatives
+converging to the null hypothesis at rate
+√T , where T denotes the sample size. Under a sequence of
+
+=============== PAGE 9 ===============
+ECONOMETRIC REVIEWS857local alternatives HZ ↛ Y
+A,T, we have
+HZ ↛ Y
+A,T: E
+[
+τ ,t(
+θ0)
+| IY
+t, IZ
+t]
+= δτ/
+√T , a.s. for all τ ∈ T , (12)
+where δτis a function satisfying the following assumption.
+Assumption 6. The function δτ: Rd→ R has the following properties:
+(i) E {supτ ∈T|δτ(IY
+t)|} < ∞;
+(ii) There exists a IY
+t-measurable random variable ht −1with E
+[
+h2
+t −1]
+< ∞ such that, for all t ∈ Z and
+for all τ1, τ2∈ T ,
+|
+|
+δτ1(IY
+t) − δτ2(IY
+t)
+|
+|
+≤ ht −1|
+τ1− τ2|
+, a.s..
+Assumption 6 is analogous to Assumption A6 of Escanciano and Velasco (2010), but we consider
+just the restricted information set IY
+t. To ensure nontrivial local power of our proposed test, we ne ed to
+impose an assumption on the estimator θTunder a local alternative as given in (12). Then we modify
+Assumption 4 as follows.
+Assumption 4'. Under a local alternative HZ ↛ Y
+A,Tin ( 12),
+√T
+(
+θT(τ ) − θ0(τ )
+)
+) = ηa(τ ) +
+1√TT∑t =1τ(
+Yt, IY
+t, θ0(τ )
+)
++ op(1),
+uniformly in τ , where τsatisfies the same conditions as in Assumption 4 and ηa(τ ) ∈ Rpfor each τ ∈ T .
+Assumption 4' can be applied to most quantile regression estimators in the literature, see for example
+Mukherjee ( 1999). Theorem 2 demonstrates that under a local alternative HZ ↛ Y
+A,Tof ( 12) the asymptotic
+distribution of SThas an extra shi function implying consistency against
+√T -alternatives. Theorem 2
+follows from Theorem 4 of Escanciano and Velasco (2010) and the continuous mapping theorem.
+Theorem 2. Under the local alternatives HQC
+A,nin ( 12), Assumptions 1–3, 4', and 5, we have
+ST
+d→
+∫T∫W|
+|
+G1(ω , τ) + (ω , τ)
+|
+|2dFω(ω )dFτ(τ ),
+where (ω , τ) is a nontrivial shi function.
+Now we derive the asymptotic validity of the subsampling critical values described in Section 2.2.
+Although no mixing conditions are required for the convergence of ST, we need another assumption on
+the serial dependence of the data generating process to validate the subsampling theoretically. According
+toPolitisetal.( 1999), Assumption 7 is sufficient for the asymptotic validity of the critical values generated
+by the subsampling approach.
+Assumption 7. {(Yt, Zt +1)′}t ∈Zis a strictly stationary strong mixing process with α −mixing coefficients
+satisfying
+∑T
+i=1α( i)/T → 0 as T →∞ .
+The next result delivers the asymptotic distribution of the subsampling test statistic. Since it is an
+application of Theorem 2 of Whang ( 2006) and Theorem 5 of Escanciano and Velasco ( 2010), we omit
+the proof.
+Theorem 3. Under Assumptions 1–7,b /T → 0, and b →∞ as T →∞ , we have as follows:
+(i) Under the null hypothesis HZ ↛ Y
+0in (6),
+limT →∞Pr
+(
+ST> cT ,b(1 − τ)
+)
+= τ .
+
+=============== PAGE 10 ===============
+858V. TROSTER(ii) Under the fixed alternative hypothesis HZ ↛ Y
+Ain (7),
+limT →∞Pr
+(
+ST> cT ,b(1 − τ)
+)
+= 1.
+(iii) Under the local alternative HZ ↛ Y
+A,Tin ( 12),
+limT →∞Pr (ST> cT ,b(1 − τ )) ≥ τ .
+Theorem 3 shows that our test based on the subsampling critical value has asymptotically correct size,
+is consistent, and is able to detect alternatives tending to the null at the parametric rate
+√T .4. Monte Carlo experimentsIn this section, we perform Monte Carlo simulation experiments with DGPs under the null and the
+alternative hypothesis to evaluate the finite-sample performance of our proposed test statistic. The data
+are generated from the following DGPs:
+DGP1: Yt= 0.5Yt −1+ cZt −1+ ε1t, and Zt= ε2t, (13)
+DGP2: Yt= 0.5Yt −1+ cZt −1+ ε1t, and Zt= 1 + 0.8Zt −1+ ε2t, (14)
+DGP3: Yt= 0.5Yt −1+ cZ2
+t −1+ ε1t, and Zt= 1 + 0.8Zt −1+ ε2t, (15)
+where εit∼ i.i.d. N (0, 1), for i = 1, 2. For all DGPs above, we have under the null hypothesis c = 0.00,
+where the coefficient c captures the degree of causality from past Ztto future Yt, and hence a higher
+absolute value of c implies a stronger Granger-causality. The coefficients of the DGPs above assure that
+the generated time series are stationary. To see how the rejection frequencies change in relation to the
+ratios of the coefficients of Yt −1and Zt −1to the variance of the error term, we design another DGP
+where these two ratios increase with the value of c . Fixing the value of the coefficient of Yt −1to 0.4 and
+the variance of the error term to (1 − 0.4 − c ) = (0.6 − c ), then the ratios of the coefficients of Yt −1and
+Zt −1to the variance of the error term ε3tbecome higher as c increases:
+DGP4: Yt= 0.4Yt −1+ cZt −1+ ε3t, and Zt= ε2t(16)
+where ε3t∼ i.i.d. N (0, (0.6 − c )). We consider the empirical rejection frequencies for 5% nominal level
+tests for different sample sizes T , subsample sizes b, conditional quantile parametric models m(·, · ), and
+causality parameters c . We consider the sample sizes T = 100, T = 250, and T = 500. To show that
+our test is robust to the choice of the subsample size, we use three different subsample sizes b =
+[
+kT2/5]
+for each sample T , where [· ] istheintegerpartofanumber,withk ={ 3, 4, 5}. Thus for k = 3, 4, and
+5, we have b = 18, 25, and 31 for T = 100, b = 27, 36, and 45 for T = 250, and b = 36, 48, and 60 for
+T = 500. We propose two different parametric quantile auto-regressive specifications m(·)—quantile
+AR(1) and AR(2)—for modeling the conditional quantiles of Yt, for all τ ∈ T , as follows:
+m1(IY
+t, θT(τ )) = μ0(τ ) + μ1(τ )Yt −1+ σtΦ−1
+ε(τ ),
+m2(IY
+t, θT(τ )) = μ0(τ ) + μ1(τ )Yt −1+ μ2(τ )Yt −2+ σtΦ−1
+ε(τ ), (17)
+where the parameters θT(τ ) = (μ0(τ ), μ1(τ ), μ2(τ ), σt)′are estimated by maximum likelihood in
+an equally spaced grid of 20 quantiles on the interval T =[ 0.10, 0.90]. When c = 0.00, there is
+no causality from past values of Ztto Ytand the rejection rates deliver the empirical size of our test
+statistic. For c ̸= 0.00, there is causality from lagged values of Ztto Ytand the rejection rates yield the
+empirical power of our test statistic. We apply 1,000 Monte Carlo replications in each of the simulations,
+which implies a maximal simulation standard error for the empirical sizes and powers of the test of
+maxp√p(1 − p)/1000 ≈ 0.016.
+
+=============== PAGE 11 ===============
+ECONOMETRIC REVIEWS859Figures 1 and 2 show the rejection frequencies of the STtest1using a QAR(1) and a QAR(2) model of
+(17), respectively. The proposed test has good power even when the degree of causality c is low. Besides,
+the SThas small size distortions when the sample size is small and the correct asymptotic size whenFigure 1. Empirical rejection frequencies for 5% subsampling STtest—QAR(1) model of (17) with subsample sizes of bk=[ kT2 /5],
+k ={ 3, 4, 5} - T = 100 (), and T = 500 ().1We do not include the results for T = 250 to save space.
+
+=============== PAGE 12 ===============
+860V. TROSTERFigure 2. Empirical rejection frequencies for 5% subsampling STtest—QAR(2) model of (17) with subsample sizes of bk=[ kT2 /5],
+k ={ 3, 4, 5} - T = 100 (), and T = 500 ().T = 500. As DGP3 is presented in Jeong et al. (2012), Figs. 1 and 2 showthatourtestnotonlyoutperforms
+their test for T = 500, but also that it obtains reliable results for a smaller sample size of T = 100. Figure 3
+displays the test results for increasing ratios of the coefficients of Yt −1and Zt −1to the variance of the error
+term. The test statistic has a reliable size and considerable power even for small ratios of the coefficients
+of Yt −1and Zt −1to the variance of the error term. Thus, for different DGPs and conditional quantile
+regression models, the SThas correct asymptotic size and an increasing power with the sample size.
+
+=============== PAGE 13 ===============
+ECONOMETRIC REVIEWS861Figure 3. Empirical rejection frequencies for 5% subsampling STtest—increasing ratios of Yt −1, Zt −1to the variance of the error term
+with subsample sizes of bk=[ kT2 /5], k ={ 3, 4, 5} - T = 100 (), and T = 500 ().We also compare our results with the Sup-Wald test statistic proposed by Koenker and Machado
+(1999). To calculate the Sup-Wald test statistic, we include the var iable Zt −1on the linear conditional
+quantile regression models in (17). Without loss of generality, we assume that each quantile regression
+model is correctly specified if we include Zt −1in the quantile regression model. Then we consider the
+following parametric specifications for the quantiles of Yt:
+W1: m1
+*(IY
+t, IZ
+t, θT(τ )) = μ0(τ ) + μ1(τ )Yt −1+ β1(τ )Zt −1+ σtΦ−1
+ε(τ ),
+W2: m2
+*(IY
+t, IZ
+t, θT(τ )) = μ0(τ ) + μ1(τ )Yt −1+ β1(τ )Zt −1+ μ2(τ )Yt −2+ σtΦ−1
+ε(τ ). (18)
+Given a conditional linear quantile regression model in W1-W2 above, testing the null hypothesis of
+Granger noncausality by the Sup-Wald test consists in testin gHSW
+0: β1(τ ) = 0, for all τ ∈ T . Figure 4
+gives the results for the Granger-causality tests based on the Sup-Wald test. A drawback of the Sup-Wald
+test is that the critical values do not have the correct nominal size in small samples, as the empirical sizes
+are always smaller than the 5% nominal level of the test. The results also suggest that the subsampling
+STtest considerably outperforms the Sup-Wald procedure in terms of power. For the DGPs considered,
+even using a small subsample size, b =[ 3T(2/5)], the STpresents powerful and reliable inference. In
+addition, the subsampling STtest is robust to the choice of the subsample size. In sum, our proposed test
+seems to perform quite well in finite samples.
+
+=============== PAGE 14 ===============
+862V. TROSTERFigure 4. Empirical rejection frequencies for 5% Sup-Wald test—quantile models W1-W2 of (18)- T = 100 () and T = 500 ().5. Empirical applicationTo illustrate the applicability of our approach, we analyze the causality between gold prices, oil prices, and
+USD/GBP exchange rate. The gold and oil market are the main representatives of the large commodity
+markets. Gold is a valuable asset and can maintain its value in turbulent times. There is evidence that
+the gold and oil markets have a close interaction. For instance, both gold and crude oil prices entered
+into a boom time in 2002 due to US dollar depreciation, global inflation, and oil supply manipulation by
+the Organization of the Petroleum Exporting Countries (OPEC); and both commodity prices collapsed
+together in the financial crisis of 2008 (Zhang and Wei, 2010). Therefore, it is important to study how
+gold and oil prices vary, and their causal relationship. While standard tests evidence a positive mean
+causal relation between oil and gold prices, our main goal is to evaluate such a relation on each quantile
+of the distribution.
+We apply our STtest to check the relationship between the S&P gold prices (per ounce) and Brent
+crude oil prices (per barrel). Under our approach, we can discriminate between causality affecting the
+median and the tails of the conditional distribution. Then the empirical analysis should provide a more
+complete description of the causal relation between gold and oil prices. We also evaluate the effect of
+the USD/GBP exchange rate on gold prices to compare the performance of our parametric test with the
+nonparametric approach proposed by Jeong et al. (2012). The data consist of 3,440 daily observations—
+from July 2000 to September 2013—on the USD/GBP exchange rate, oil and gold prices, and all series
+were obtained from Datastream.
+Figure 5 displays the daily log and log-difference series. The graphs of the log series indicate that
+the series are nonstationary and follow a common pattern. Table 1 presents the summary statistics
+of the series. The gold and oil prices are very volatile, and all series are positively skewed and
+leptokurtic. We apply the STtest on the log-difference of the series, as Dickey–Fuller and Kwiatkowski–
+Phillips–Schmidt–Shin (KPSS) unit root tests show that the three log series are nonstationary.
+
+=============== PAGE 15 ===============
+ECONOMETRIC REVIEWS863Figure 5. Log of the series (upper panel) and first-difference of the logs (lower panel).
+Table 1. Summary statistics.Gold prices Oil prices USD/GBPMean 466.89 65.31 1.67
+Std. Dev. 282.83 33.23 0.18
+Median 382.74 62.06 1.61
+Skewness 0.64 0.32 0.49
+Kurtosis 2.04 1.81 2.05
+Minimum 149.39 17.00 1.37
+Maximum 1101.48 143.60 2.11Gold is the S&P GSCI Gold Spot price index; Oil price is the price adjusted default Crude Oil Dated Brent in US dollars per barrel; USD/GBP
+is the exchange rate of US dollars to UK British pounds; The data covers the period that spans July 3, 2000 to September 6, 2013.In order to compare our approach with a standard test of Granger-causality, we perform a Granger-
+Causality in mean between the differences of the log of the three series. We test the null hypothesis
+of Granger noncausality in mean of ( 2), for three different lag specifications. Table 2 presents the p-
+values of the Granger-Causality test between Gold, Oil, and USD/GBP. There is no Granger-
+causalityinmeanfrom USD/GBP to Gold and to Oil, at the 5% significance level, for different
+lag specifications. Besides, we find no Granger-causality from variations in oil prices to variations in
+gold prices, at the 5% significance level. However, gold price variations Granger-cause in mean oil price
+variations at the 5% significance level. Table 2 displays no pattern of Granger-causality in mean at the
+1% significance level. In sum, there is no evidence of a strong pattern of Granger-causality between the
+series using a conditional mean analysis.
+To apply our STtest of (6), we estimate three different quantile auto-regressive (QAR) models as in
+(17) for each dependent variable on the STtest. Tables 3 and 4 report the subsampling p-values of our STtest. If we take into account all quantiles, the results suggest that variations in the gold prices Granger-
+cause variations in the oil prices, and vice-versa, at the 1% significance level. However, if we perform
+a median-regression and consider only τ = 0.50, there is no evidence that variations in the oil prices
+Granger-cause variations in the gold prices, and vice-versa, at the 5% significance level.
+In addition, changes in the USD/GBP Granger-cause changes in the gold and oil prices at the 1%
+significance level, when we consider all quantiles of the conditional distribution. However, if we consider
+only the extreme tails of the conditional distribution for τ = 0.10 and τ = 0.90, we oen cannot reject
+that variations of USD/GBP do not Granger-cause variations in gold prices and in oil prices, at the 1%
+significance level. These results are consistent with the ones obtained by Jeong et al. ( 2012), who showed
+that USD/GBP exchange rate changes do not cause the gold price change if τ< 0.22 or τ> 0.80.
+
+=============== PAGE 16 ===============
+864V. TROSTERTable 2. Granger-causality in mean: p-values.T = 3,440 Number of Lags12 3A. Granger-Causality in Mean to Gold
+Oil to Gold 0.314 0.548 0.097
+USD/GBP to Gold 0.965 0.749 0.821
+B. Granger-Causality in Mean to Oil
+Gold to Oil 0.017*0.014*0.035*USD/GBP to Oil 0.421 0.752 0.154*denotes significance at the 5% level.
+Table 3. Granger-causality to Gold: subsampling p-values.T = 3,440 τ Number of Lags of IY
+t123Oil to Gold [0.10; 0.90] 0.000**0.000**0.000**0.10 0.000**0.000**0.000**0.50 0.294 0.265 0.323
+0.90 0.000**0.000**0.000**USD/GBP to Gold [0.10; 0.90] 0.000**0.000**0.000**0.10 0.011*0.010*0.006**0.50 0.004**0.006**0.007**0.90 0.010*0.007**0.013**and**denote significance at the 5 and 1% levels, respectively; For τ ∈[ 0.10, 0.90].
+Table 4. Granger-causality to Oil—subsampling p-values.T = 3,440 τ Number of Lags of IY
+t123Gold to Oil [0.10; 0.90] 0.000**0.000**0.000**0.10 0.000**0.000**0.000**0.50 0.461 0.345 0.384
+0.90 0.000**0.000**0.000**USD/GBP to Oil [0.10; 0.90] 0.000**0.000**0.000**0.10 0.011*0.010*0.006**0.50 0.005**0.006**0.006**0.90 0.010*0.006**0.012** and**denote significance at the 5 and 1% levels, respectively; For τ ∈[ 0.10, 0.90].In contrast to the mean analysis of Table 2 , our STtest detects a pattern of Granger-causality in
+the tails of the distribution from Oil to Gold ( Table 3 ) and of Granger-causality in quantiles from
+USD/GBP to Gold and to Oil (Tables 3 and 4). Therefore, the empirical application shows the
+ability of our approach to detect tail and quantile Granger-causalities that could be possibly ignored
+under a conditional mean regression analysis.6. ConclusionsMany important policy and financial analyses are investigated through testing for Granger-causality
+between economic time series. However, most of the results in the literature were obtained in the context
+of Granger-causality in mean. In this article, we present a consistent parametric test of Granger-causality
+in quantiles. Rather than focusing on a single part of the conditional distribution, we develop a test that
+evaluates possible causal relations in all conditional quantiles. The proposed test statistic has correct
+asymptotic size, is consistent against fixed alternatives, and has power against Pitman deviations from
+the null hypothesis. In addition, the proposed approach allows us to evaluate nonlinear causalities, causal
+relations in conditional quantiles, and provides a sufficient condition for Granger-causality when all
+quantiles are considered.
+
+=============== PAGE 17 ===============
+ECONOMETRIC REVIEWS865Finite sample experiments suggest that our proposed test has good size and power properties, and is
+more powerful than other comparable test in the literature against almost all alternatives. An empirical
+application highlights the practical importance of our setting considering the causal relation between the
+gold price, the USD/GBP exchange rate, and the oil price. We illustrate that oil price, USD/GBP, and gold
+price changes presented a different causal relationship in the tail and in the center of the distribution.
+A possible direction for future work is to extend this method to analyse the effect of misspecifications
+in the quantile regression model to Granger-causality. A possibly misspecified quantile regression model
+may lead to over-rejections of the Granger noncausality null hypothesis.AcknowledgmentsI would like to thank two anonymous referees and the editor for very helpful comments and suggestions. I would like
+to thank Carlos Velasco, Abderrahim Taamouti, Juan Carlos Escanciano, Jess Gonzalo, Iacopo Morchio, Mian Huang,
+and participants at presentations at the 68th European Meeting of the Econometric Society, IVtWorkshop in Time Series
+Econometrics in Zaragoza, and Universidad Carlos III de Madrid for helpful comments and discussions.FundingI gratefully acknowledge Spain's Ministerio de Educacin y Ciencia ECO2014-58991-C3-3-R for financial support.ORCIDVictor Trosterhttp://orcid.org/0000-0002-8798-5601ReferencesAngrist, J., Chernozhukov, V., Fernndez-Val, I. (2006). Quantile regression under misspecification, with an application to
+the US wage structure. Econometrica 74:539–563.
+Bierens, H. J. (1982). Consistent model specification tests. Journal of Econometrics 20:105–134.
+Bouezmarni, T., Rombouts, J. V., Taamouti, A. (2012). Nonparametric copula-based test for conditional independence with
+applications to Granger causality. Journal of Business & Economic Statistics 30:275–287.
+Chernozhukov, V., Fernndez-Val, I. (2005). Subsampling inference on quantile regression processes. Sankhya 67:253–276.
+Cheung, Y.-W., Ng, L. K. (1996). A causality-in-variance test and its application to financial market prices. Journal of
+Econometrics 72:33–48.
+Chuang, C. C., Kuan, C. M., Lin, H. Y. (2009). Causality in quantiles and dynamic stock return-volume relations. Journal
+of Banking & Finance 33:1351–1360.
+Engle, R., Manganelli, S. (2004). CAViaR: Conditional autoregressive Value at Risk by regression quantiles. Journal of
+Business & Economic Statistics 22:367–381.
+Epps, T., Pulley, L. (1983). A test for normality based on the empirical characteristic function. Biometrika 70:723–726.
+Escanciano, J., Velasco, C. (2006). Generalized spectral tests for the martingale difference hypothesis. Journal of
+Econometrics 134:151–185.
+Escanciano, J., Velasco, C. (2010). Specification tests of parametric dynamic conditional quantiles. Journal of Econometrics
+159:209–221.
+Escanciano, J. C. (2006). Goodness-of-fit tests for linear and non-linear time series models. Journal of the American
+Statistical Association 101:531–541.
+Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. Econometrica
+37:424–438.
+Haavelmo, T. (1944). The probability approach in econometrics. Econometrica 12 (Supplement):iii–115.
+Heckman, J. J., Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models
+and econometric policy evaluation. In: Heckman, J., Leamer, E ., eds. Handbook of Econometrics , Vol. 6B. Amsterdam:
+Elsevier, pp. 4779–4874.
+Holland, P. W. (1986). Statistics and causal inference. Journal of the American Statistical Association 81:945–960.
+Hong, Y. (1999). Hypothesis testing in time series via the empirical characteristic function: A generalized spectral density
+approach. Journal of the American Statistical Association 94:1201–1220.
+Hong, Y., Liu, Y., Wang, S. (2009). Granger causality in risk and detection of extreme risk spillover between financial
+markets. Journal of Econometrics 150:271–287.
+
+=============== PAGE 18 ===============
+866V. TROSTERHoover, K. D. (2012). Economic theory and causal inference. In: Mki, U., ed. Philosophy of Economics . Vol. 13. San Diego:
+North Holland, pp. 89–113.
+Horowitz, J. L. (1998). Bootstrap methods for median regression models. Econometrica 66:1327–1351.
+Jeong, K., Hrdle, W. K., Song, S. (2012). A consistent nonparametric test for causality in quantile. Econometric Theory
+28:861–887.
+Koenker, R., Bassett, G. (1978). Regression quantiles. Econometrica 46:33–50.
+Koenker, R., Machado, J. A. F. (1999). Goodness of fit and related inference processes for quantile regression. Journal of the
+American Statistical Association 94:1296–1310.
+Koenker, R., Xiao, Z. (2006). Quantile autoregression. Journal of the American Statistical Association 101:980–990.
+Kuan, C.-M., Lee, W.-M. (2004). A new test of the martingale difference hypothesis. Studies in Nonlinear Dynamics &
+Econometrics 8:1–25.
+Lee, T.-H., Yang, W. (2012). Money-income Granger-causality in quantiles. Advances in Econometrics 30:383–407.
+Mukherjee, K. (1999). Asymptotics of quantiles and rank scores in nonlinear time series. Journal of Time Series Analysis
+20:173–192.
+Pearl, J. (1988). Probabilistic Reasoning in Intelligent Systems: Networks o f Plausible Reasoning . San Francisco, CA: Morgan
+Kaufmann Publishers Inc.
+Politis, D., Romano, J., Wolf, M. (1999). Subsampling . New York: Springer-Verlak.
+Sakov, A., Bickel, P. (2000). An edgeworth expansion for the m out of n bootstrap median. Statistics & Probability Letters
+49:217–223.
+Stinchcombe, M., White, H. (1998). Consistent specification testing with nuisance parameters present only under the
+alternative. Econometric Theory 14:295–325.
+Taamouti, A., Bouezmarni, T., El Ghouch, A. (2014). Nonparametric estimation and inference for conditional density based
+Granger causality measures. Journal of Econometrics 180:251–264.
+Whang, Y.-J. (2006). Smoothed empirical likelihood methods for quantile regression models. Econometric Theory 22:
+173–205.
+Yang, Z., Tu, A., Zeng, Y. (2014). Dynamic linkages between asian stock prices and exchange rates: New evidence from
+causality in quantiles. Applied Economics 46:1184–1201.
+Zhang, Y.-J., Wei, Y.-M. (2010). The crude oil market and the gold market: Evidence for co-integration, causality and price
+discovery. Resources Policy 35:168–177.
+Zheng, J. X. (1998). A consistent nonparametric test of parametric regression models under conditional quantile restric-
+tions. Econometric Theory 14:123–138.

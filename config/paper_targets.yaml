@@ -1,0 +1,106 @@
+# Quantitative targets transcribed verbatim from the target paper.
+#   Troster, V. (2018). "Testing for Granger-causality in quantiles."
+#   Econometric Reviews 37(8), 850-866.  DOI 10.1080/07474938.2016.1172400
+#
+# Significance markers as printed:  * = 5% level,  ** = 1% level.
+# Nothing here is computed; this file is the immutable comparison baseline.
+
+meta:
+  title: "Testing for Granger-causality in quantiles"
+  author: "Victor Troster"
+  journal: "Econometric Reviews"
+  volume_issue_pages: "37(8), 850-866"
+  year: 2018
+  doi: "10.1080/07474938.2016.1172400"
+  sample_size: 3440
+  sample_start: "2000-07-03"
+  sample_end: "2013-09-06"
+  data_source_in_paper: "Datastream"
+
+# --- Table 1 (p. 863): summary statistics of the LEVELS. -----------------------
+# Kurtosis is reported RAW (not excess): all three values are < 3.
+table1:
+  page: 863
+  statistics: [mean, std_dev, median, skewness, kurtosis, minimum, maximum]
+  gold:
+    description: "S&P GSCI Gold Spot price index"
+    mean: 466.89
+    std_dev: 282.83
+    median: 382.74
+    skewness: 0.64
+    kurtosis: 2.04
+    minimum: 149.39
+    maximum: 1101.48
+  oil:
+    description: "Crude Oil Dated Brent, US dollars per barrel"
+    mean: 65.31
+    std_dev: 33.23
+    median: 62.06
+    skewness: 0.32
+    kurtosis: 1.81
+    minimum: 17.00
+    maximum: 143.60
+  usdgbp:
+    description: "US dollars to UK British pounds"
+    mean: 1.67
+    std_dev: 0.18
+    median: 1.61
+    skewness: 0.49
+    kurtosis: 2.05
+    minimum: 1.37
+    maximum: 2.11
+
+# --- Table 2 (p. 864): Granger-causality in MEAN, p-values. --------------------
+table2:
+  page: 864
+  lags: [1, 2, 3]
+  to_gold:
+    oil_to_gold:    {p: [0.314, 0.548, 0.097], sig: ["",   "",   ""]}
+    usdgbp_to_gold: {p: [0.965, 0.749, 0.821], sig: ["",   "",   ""]}
+  to_oil:
+    gold_to_oil:    {p: [0.017, 0.014, 0.035], sig: ["*",  "*",  "*"]}
+    usdgbp_to_oil:  {p: [0.421, 0.752, 0.154], sig: ["",   "",   ""]}
+
+# --- Table 3 (p. 864): Granger-causality to GOLD, subsampling p-values. --------
+table3:
+  page: 864
+  lags: [1, 2, 3]
+  oil_to_gold:
+    "[0.10;0.90]": {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.10":        {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.50":        {p: [0.294, 0.265, 0.323], sig: ["",   "",   ""]}
+    "0.90":        {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+  usdgbp_to_gold:
+    "[0.10;0.90]": {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.10":        {p: [0.011, 0.010, 0.006], sig: ["*",  "*",  "**"]}
+    "0.50":        {p: [0.004, 0.006, 0.007], sig: ["**", "**", "**"]}
+    "0.90":        {p: [0.010, 0.007, 0.013], sig: ["*",  "**", "**"]}
+
+# --- Table 4 (p. 864): Granger-causality to OIL, subsampling p-values. ---------
+table4:
+  page: 864
+  lags: [1, 2, 3]
+  gold_to_oil:
+    "[0.10;0.90]": {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.10":        {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.50":        {p: [0.461, 0.345, 0.384], sig: ["",   "",   ""]}
+    "0.90":        {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+  usdgbp_to_oil:
+    "[0.10;0.90]": {p: [0.000, 0.000, 0.000], sig: ["**", "**", "**"]}
+    "0.10":        {p: [0.011, 0.010, 0.006], sig: ["*",  "*",  "**"]}
+    "0.50":        {p: [0.005, 0.006, 0.006], sig: ["**", "**", "**"]}
+    "0.90":        {p: [0.010, 0.006, 0.012], sig: ["*",  "**", "**"]}
+
+# --- Figures 1-4: raster only, no numeric targets in the paper. ----------------
+# Verified: the PDF holds 24 Image XObjects and 0 Form XObjects, so no vector
+# coordinates exist. Numeric targets come from reporting/digitize.py.
+figures:
+  pages: {fig1: 859, fig2: 860, fig3: 861, fig4: 862}
+  nominal_level: 0.05
+  max_simulation_se: 0.016     # max_p sqrt(p(1-p)/1000), stated in Sec. 4
+  qualitative_claims:
+    - "Empirical size approaches the 5% nominal level as T grows."
+    - "Power increases with |c| and with T."
+    - "Results are robust to the subsample size constant k in {3,4,5}."
+    - "Sup-Wald is undersized in small samples (size < 5%)."
+    - "S_T dominates Sup-Wald in power for the DGPs considered."
