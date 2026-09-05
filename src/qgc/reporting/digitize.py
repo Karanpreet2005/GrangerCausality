@@ -220,4 +220,50 @@ def trace_all(pdf_path: Path, out_dir: Path) -> "list[dict]":
     for fig, paths in saved.items():
         main = max(paths, key=lambda p: p.stat().st_size)   # the real plot, not logo bits
         rows.extend(trace_figure(main, fig))
-    return rows
+    return flag_quality(rows)
+
+
+# ------------------------------------------------------------ quality control
+#: A traced reading may exceed the minimum of all LATER readings in its series by
+#: at most this much before it is treated as a tracing failure.
+MONOTONICITY_TOLERANCE = 0.10
+
+
+def flag_quality(rows) -> "list[dict]":
+    """Mark tracing failures. Pre-declared QC only - values are never altered.
+
+    Two independent checks, both properties of the published plots rather than of
+    our results:
+
+    `spread_ok`      the two or three near-coincident curves of one colour sit
+                     within a few percent of each other, so a wide pixel spread
+                     means something other than a curve was caught.
+    `monotonic_ok`   the plotted rejection curves rise with c. A reading that sits
+                     materially ABOVE the minimum of every later reading in its own
+                     series cannot be on a monotone curve, so the trace failed
+                     there - typically at a steep first segment, where the sampling
+                     column catches the rising line rather than the marker.
+
+    A failing point keeps its raw traced value and is marked `valid = False`; it is
+    never replaced with something that agrees better with anything.
+    """
+    import pandas as pd
+
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return []
+
+    df["spread_ok"] = df["reliable"]
+    df["monotonic_ok"] = True
+
+    keys = ["figure", "dgp", "qar_order", "T"]
+    for _, idx in df.groupby(keys, dropna=False).groups.items():
+        sub = df.loc[idx].sort_values("c")
+        vals = sub["paper_mean"].to_numpy()
+        for i in range(len(vals) - 1):
+            if vals[i] > vals[i + 1:].min() + MONOTONICITY_TOLERANCE:
+                df.loc[sub.index[i], "monotonic_ok"] = False
+
+    df["valid"] = df["spread_ok"] & df["monotonic_ok"]
+    # `reliable` is kept as the raw spread check; `valid` is the overall verdict.
+    return df.to_dict("records")
