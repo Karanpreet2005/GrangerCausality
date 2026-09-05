@@ -5,7 +5,7 @@ from .base import Profile
 PROFILE = Profile(
     name="validation",
     mc_replications=250,
-    c_grid=(0.0, 0.2, 0.5),
+    c_grid=(0.0, 0.03, 0.12, 0.50),
     mc_T=(100, 500),
     k_values=(3, 5),
     dgps=(1, 2, 3),

@@ -1,0 +1,15 @@
+{
+  "stage": "data",
+  "key": "1f172a08626df6b0",
+  "outputs": [
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table1_summary_stats__full.csv",
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table1_summary_stats__full.md",
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table1_comparison__full.csv",
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/table1_comparison__full.md"
+  ],
+  "completed_at": "2026-09-06 00:40:22",
+  "meta": {
+    "profile": "full",
+    "seconds": 0.23
+  }
+}

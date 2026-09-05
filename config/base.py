@@ -43,9 +43,12 @@ EMPIRICAL_LAGS_PAPER = (1, 2, 3)  # Tables 3-4 column headers
 # publication date (4 June 2016) so that it is memorable and clearly arbitrary.
 SEED = 20160604
 
-# Grid of causality strengths c on the x-axis of Figs. 1-4 is never stated.
-# Capped at 0.5 because DGP4 (eq. 16) needs error variance 0.6 - c > 0.
-C_GRID_FULL = (0.0, 0.1, 0.2, 0.35, 0.5)
+# Grid of causality strengths c. The body text never states it, but the x-axis tick
+# labels of Figs. 1-4 in the published PDF read 0.00, 0.01, 0.03, 0.06, 0.12, 0.24,
+# 0.50 - recovered by rasterising the figures (reporting/digitize.py). This is
+# therefore PAPER_SPECIFIED, not our assumption. 0.50 < 0.6 keeps DGP4's error
+# variance (0.6 - c) positive.
+C_GRID_FULL = (0.00, 0.01, 0.03, 0.06, 0.12, 0.24, 0.50)
 
 # Lags q of Z entering I_t = (I^Y_t, I^Z_t)'. Tables 3-4 label only the lags of
 # I^Y_t. Decision C: q = s, so the "3 lags" column uses 3 lags of both series.
