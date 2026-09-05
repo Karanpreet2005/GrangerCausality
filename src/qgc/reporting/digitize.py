@@ -178,7 +178,10 @@ def trace_figure(png_path: Path, figure: int) -> "list[dict]":
             x = left + round(i * (right - left) / (len(C_TICKS) - 1))
             x = min(max(x, left + 3), right - 3)      # keep the sample off the frame
             for colour, mask in masks.items():
-                lo_x, hi_x = max(left + 1, x - 3), min(right, x + 4)
+                # Narrow window: markers sit ON the tick, whereas a wide window also
+                # catches the connecting line, which on a steep segment spans a large
+                # y range and biases the reading badly.
+                lo_x, hi_x = max(left + 1, x - 1), min(right, x + 2)
                 ys = np.where(mask[top:bottom + 1, lo_x:hi_x].any(axis=1))[0]
                 if ys.size == 0:
                     continue
@@ -191,11 +194,15 @@ def trace_figure(png_path: Path, figure: int) -> "list[dict]":
 
                 vals = 1.0 - ys / (bottom - top)          # y axis runs 0.0 to 1.0
                 spread = float(vals.max() - vals.min())
+                # Median, not mean: the marker contributes the densest pixels, so the
+                # median sits on the plotted value even when a line segment leaks in.
+                centre = float(np.median(vals))
                 rows.append({
                     "figure": figure, "dgp": dgp, "qar_order": qar,
                     "T": T_BY_COLOUR[colour], "c": c,
                     "paper_min": float(vals.min()),
-                    "paper_mean": float(vals.mean()),
+                    "paper_mean": centre,
+                    "paper_pixel_mean": float(vals.mean()),
                     "paper_max": float(vals.max()),
                     "spread": spread,
                     "n_pixels": int(ys.size),

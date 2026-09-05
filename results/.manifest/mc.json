@@ -1,0 +1,13 @@
+{
+  "stage": "mc",
+  "key": "c3ef18abead08e41",
+  "outputs": [
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/montecarlo_rejection_rates__full.csv",
+    "/Users/karanpreetdhaliwal/Documents/Semester7/QuantileRegression/results/tables/montecarlo_rejection_rates__full.md"
+  ],
+  "completed_at": "2026-09-06 00:48:05",
+  "meta": {
+    "profile": "full",
+    "seconds": 321.31
+  }
+}
