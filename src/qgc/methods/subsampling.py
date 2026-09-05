@@ -115,3 +115,54 @@ def subsampling_test(
         taus=taus,
         subsample_stats=sub,
     )
+
+
+def subsampling_test_multi_k(
+    y: np.ndarray,
+    z: np.ndarray,
+    *,
+    s: int,
+    q: int | None = None,
+    taus: np.ndarray,
+    k_values: tuple[float, ...] = (3.0, 4.0, 5.0),
+    estimator: QuantileEstimator | str = "location_shift",
+    standardize: bool = True,
+    chunk: int = 256,
+) -> dict[float, TestResult]:
+    """Same test for several subsample constants, sharing the expensive parts.
+
+    The kernel W and the full-sample statistic do not depend on k, so they are
+    computed once and every k reuses them. Only the subsample refits differ.
+    """
+    y = np.asarray(y, dtype=np.float64).ravel()
+    z = np.asarray(z, dtype=np.float64).ravel()
+    q = s if q is None else q
+    taus = np.atleast_1d(np.asarray(taus, dtype=np.float64))
+    if isinstance(estimator, str):
+        estimator = get_estimator(estimator)
+
+    T = y.size
+    d = build_lag_matrix(y, z, s=s, q=q)
+    y_eff, X, I = d["y_eff"], d["X"], d["I"]
+
+    W = gaussian_kernel(I, standardize=standardize)
+    stat = cvm_statistic(estimator.psi(y_eff, X, taus), W)
+
+    out: dict[float, TestResult] = {}
+    for k in k_values:
+        b = subsample_size(T, k)
+        m = b - d["offset"]
+        if m <= X.shape[1] + 1:
+            raise ValueError(f"subsample too small: b={b} leaves m={m} rows")
+        psi_b = estimator.batch_psi(y_eff, X, taus, m)
+        sub = cvm_statistic_batch(psi_b, subsample_blocks(W, m), chunk=chunk)
+        out[k] = TestResult(
+            statistic=stat,
+            p_value=float(np.mean(sub > stat)),
+            b=b,
+            n_subsamples=sub.size,
+            n_effective=y_eff.size,
+            taus=taus,
+            subsample_stats=sub,
+        )
+    return out
