@@ -54,6 +54,14 @@ Z_LAGS_EQUAL_Y_LAGS = True
 # k used for the empirical Tables 3-4 is never stated. Decision B: run all three.
 EMPIRICAL_K_VALUES = K_VALUES_PAPER
 
+# Resolution D8: the paper's gold series sits one observation later than the LBMA
+# fix relative to oil and USD/GBP. Both alignments are run; 'primary' is the literal
+# same-date reading, 'gold_offset' is the one under which Table 2 is recovered.
+EMPIRICAL_ALIGNMENTS = {
+    "primary": {},
+    "gold_offset": {"gold": -1},
+}
+
 # sigma_t in eq. (17) has no volatility model attached. Decision F: constant sigma
 # is primary (see src/qgc/_external_resolutions.py, D2/D3); GARCH is a sensitivity
 # run on the empirical tables only.

@@ -1,0 +1,26 @@
+# Table 1 - paper vs reproduced
+
+> PROFILE=full - full reproduction at the paper's settings
+|    | series   | statistic   |   paper |   reproduced |   difference |   rel_diff | matches_printed   | within_rel_tolerance   |
+|---:|:---------|:------------|--------:|-------------:|-------------:|-----------:|:------------------|:-----------------------|
+|  0 | gold     | mean        |  466.89 |   466.48     |    -0.410066 |  -0.000878 | False             | True                   |
+|  1 | gold     | std_dev     |  282.83 |   283.279    |     0.448535 |   0.001586 | False             | True                   |
+|  2 | gold     | median      |  382.74 |   380.335    |    -2.40537  |  -0.006285 | False             | True                   |
+|  3 | gold     | skewness    |    0.64 |     0.637755 |    -0.002245 |  -0.003508 | True              | True                   |
+|  4 | gold     | kurtosis    |    2.04 |     2.03204  |    -0.007956 |  -0.0039   | False             | True                   |
+|  5 | gold     | minimum     |  149.39 |   149.219    |    -0.17115  |  -0.001146 | False             | True                   |
+|  6 | gold     | maximum     | 1101.48 |  1104.79     |     3.305    |   0.003001 | False             | True                   |
+|  7 | oil      | mean        |   65.31 |    65.138    |    -0.171985 |  -0.002633 | False             | True                   |
+|  8 | oil      | std_dev     |   33.23 |    32.9695   |    -0.260504 |  -0.007839 | False             | True                   |
+|  9 | oil      | median      |   62.06 |    62.15     |     0.09     |   0.00145  | False             | True                   |
+| 10 | oil      | skewness    |    0.32 |     0.30939  |    -0.01061  |  -0.033157 | False             | True                   |
+| 11 | oil      | kurtosis    |    1.81 |     1.81874  |     0.008737 |   0.004827 | False             | True                   |
+| 12 | oil      | minimum     |   17    |    16.51     |    -0.49     |  -0.028824 | False             | True                   |
+| 13 | oil      | maximum     |  143.6  |   143.95     |     0.35     |   0.002437 | False             | True                   |
+| 14 | usdgbp   | mean        |    1.67 |     1.66985  |    -0.00015  |  -9e-05    | True              | True                   |
+| 15 | usdgbp   | std_dev     |    0.18 |     0.182788 |     0.002788 |   0.015491 | True              | True                   |
+| 16 | usdgbp   | median      |    1.61 |     1.61235  |     0.00235  |   0.00146  | True              | True                   |
+| 17 | usdgbp   | skewness    |    0.49 |     0.490995 |     0.000995 |   0.00203  | True              | True                   |
+| 18 | usdgbp   | kurtosis    |    2.05 |     2.05255  |     0.002547 |   0.001242 | True              | True                   |
+| 19 | usdgbp   | minimum     |    1.37 |     1.3658   |    -0.0042   |  -0.003066 | True              | True                   |
+| 20 | usdgbp   | maximum     |    2.11 |     2.1104   |     0.0004   |   0.00019  | True              | True                   |

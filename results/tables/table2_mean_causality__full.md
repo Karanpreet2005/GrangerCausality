@@ -1,0 +1,29 @@
+# Table 2 - Granger-causality in mean (paper vs reproduced)
+
+> PROFILE=full - full reproduction at the paper's settings
+|    | alignment   | cause   | effect   |   lags |   paper_p |   reproduced_p |   difference |     f_stat |   chi2_p | same_decision_5pct   |
+|---:|:------------|:--------|:---------|-------:|----------:|---------------:|-------------:|-----------:|---------:|:---------------------|
+|  0 | primary     | oil     | gold     |      1 |     0.314 |       0.013034 |    -0.300966 |   6.17093  | 0.012987 | False                |
+|  1 | primary     | oil     | gold     |      2 |     0.548 |       0.042356 |    -0.505644 |   3.16455  | 0.042233 | False                |
+|  2 | primary     | oil     | gold     |      3 |     0.097 |       0.068397 |    -0.028603 |   2.37295  | 0.068204 | True                 |
+|  3 | primary     | usdgbp  | gold     |      1 |     0.965 |       6e-05    |    -0.96494  |  16.1301   | 5.9e-05  | False                |
+|  4 | primary     | usdgbp  | gold     |      2 |     0.749 |       0.0002   |    -0.7488   |   8.53702  | 0.000196 | False                |
+|  5 | primary     | usdgbp  | gold     |      3 |     0.821 |       0.000403 |    -0.820597 |   6.07708  | 0.000394 | False                |
+|  6 | primary     | gold    | oil      |      1 |     0.017 |       0.654905 |     0.637905 |   0.199807 | 0.654877 | False                |
+|  7 | primary     | gold    | oil      |      2 |     0.014 |       0.337517 |     0.323517 |   1.08648  | 0.337401 | False                |
+|  8 | primary     | gold    | oil      |      3 |     0.035 |       0.525515 |     0.490515 |   0.744404 | 0.525436 | False                |
+|  9 | primary     | usdgbp  | oil      |      1 |     0.421 |       0.827756 |     0.406756 |   0.047348 | 0.827743 | True                 |
+| 10 | primary     | usdgbp  | oil      |      2 |     0.752 |       0.376307 |    -0.375693 |   0.977628 | 0.376202 | True                 |
+| 11 | primary     | usdgbp  | oil      |      3 |     0.154 |       0.502497 |     0.348497 |   0.784394 | 0.502409 | True                 |
+| 12 | gold_offset | oil     | gold     |      1 |     0.314 |       0.649949 |     0.335949 |   0.206001 | 0.64992  | True                 |
+| 13 | gold_offset | oil     | gold     |      2 |     0.548 |       0.671249 |     0.123249 |   0.398661 | 0.671218 | True                 |
+| 14 | gold_offset | oil     | gold     |      3 |     0.097 |       0.798611 |     0.701611 |   0.336972 | 0.79861  | True                 |
+| 15 | gold_offset | usdgbp  | gold     |      1 |     0.965 |       0.301208 |    -0.663792 |   1.06916  | 0.301135 | True                 |
+| 16 | gold_offset | usdgbp  | gold     |      2 |     0.749 |       0.350491 |    -0.398509 |   1.04874  | 0.350379 | True                 |
+| 17 | gold_offset | usdgbp  | gold     |      3 |     0.821 |       0.233466 |    -0.587534 |   1.42497  | 0.233268 | True                 |
+| 18 | gold_offset | gold    | oil      |      1 |     0.017 |       0        |    -0.017    | 161.808    | 0        | True                 |
+| 19 | gold_offset | gold    | oil      |      2 |     0.014 |       0        |    -0.014    |  81.1879   | 0        | True                 |
+| 20 | gold_offset | gold    | oil      |      3 |     0.035 |       0        |    -0.035    |  54.9292   | 0        | True                 |
+| 21 | gold_offset | usdgbp  | oil      |      1 |     0.421 |       0.824125 |     0.403125 |   0.049399 | 0.824112 | True                 |
+| 22 | gold_offset | usdgbp  | oil      |      2 |     0.752 |       0.380686 |    -0.371314 |   0.966053 | 0.380582 | True                 |
+| 23 | gold_offset | usdgbp  | oil      |      3 |     0.154 |       0.508533 |     0.354533 |   0.773776 | 0.508448 | True                 |

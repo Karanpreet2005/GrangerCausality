@@ -21,6 +21,7 @@ meta:
 # Kurtosis is reported RAW (not excess): all three values are < 3.
 table1:
   page: 863
+  printed_decimals: 2      # every Table 1 value is printed to 2 dp
   statistics: [mean, std_dev, median, skewness, kurtosis, minimum, maximum]
   gold:
     description: "S&P GSCI Gold Spot price index"

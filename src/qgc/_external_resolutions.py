@@ -106,6 +106,33 @@ RESOLUTIONS: tuple[Resolution, ...] = (
             "(11) is based, work with standardised regressors."
         ),
     ),
+Resolution(
+        tag="D8",
+        issue=(
+            "Table 2's direction of mean causality does not reproduce under face-value "
+            "alignment. The paper reports gold -> oil significant (p = 0.017/0.014/0.035) "
+            "and oil -> gold insignificant (0.314/0.548/0.097); rebuilding the series and "
+            "aligning all three on the same trading date reverses this, giving oil -> gold "
+            "significant and gold -> oil not. Only 4 of 12 Table 2 cells agree."
+        ),
+        resolution=(
+            "Diagnosed as a one-observation relative timing offset in the gold series, not "
+            "a methodological error. Offsetting gold by a single trading day relative to oil "
+            "and USD/GBP reproduces ALL 12 of Table 2's cells exactly, including both "
+            "insignificant panels. This is consistent with the paper's Datastream gold "
+            "series carrying information as of a later clock time than the LBMA 15:00 London "
+            "fix (the S&P GSCI Gold index is futures-based and stamped at the US close), "
+            "and/or with Datastream's date-stamping convention. Daily cross-market lead-lag "
+            "results are exactly what such an offset moves. BOTH alignments are run and "
+            "reported: offset 0 is the primary, literal reading; offset -1 is reported as "
+            "the alignment under which the paper is recovered. The offset is NOT adopted "
+            "silently to force agreement."
+        ),
+        source=(
+            "Our own diagnostic over relative offsets in {-1, 0, +1}, run against Table 2. "
+            "The paper does not state the intraday timestamp of any series."
+        ),
+    ),
 )
 
 

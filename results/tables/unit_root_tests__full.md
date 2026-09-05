@@ -1,0 +1,11 @@
+# ADF and KPSS tests (Sec. 5)
+
+> PROFILE=full - full reproduction at the paper's settings
+|    | series   | form           |   adf_stat |   adf_pvalue |   adf_lags |   kpss_stat |   kpss_pvalue |
+|---:|:---------|:---------------|-----------:|-------------:|-----------:|------------:|--------------:|
+|  0 | gold     | log level      |  -0.705461 |     0.84533  |          0 |    9.08895  |          0.01 |
+|  1 | gold     | log difference | -13.1927   |     0        |         23 |    0.089472 |          0.1  |
+|  2 | oil      | log level      |  -1.03278  |     0.741121 |          0 |    7.80541  |          0.01 |
+|  3 | oil      | log difference | -24.6544   |     0        |          5 |    0.045631 |          0.1  |
+|  4 | usdgbp   | log level      |  -1.62112  |     0.472142 |         27 |    1.64082  |          0.01 |
+|  5 | usdgbp   | log difference | -11.7904   |     0        |         26 |    0.14434  |          0.1  |
