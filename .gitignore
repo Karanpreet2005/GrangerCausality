@@ -18,3 +18,8 @@ results/figures/*
 # Results tables and manifests ARE tracked: they are the reproduction record.
 !results/tables/
 !results/.manifest/
+
+# Copyrighted source article (Taylor & Francis). Not redistributed.
+# Place the PDF here yourself to enable the figure-digitisation stage; see paper/README.md.
+paper/*.pdf
+paper/extracted_text.txt
