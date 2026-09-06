@@ -197,7 +197,21 @@ def run(profile, paths, logger) -> list[Path]:
     add(resolutions_markdown())
     add("")
 
-    out = paths["results"] / "comparison.md"
-    out.write_text("\n".join(L) + "\n")
-    logger.info("wrote %s", out)
-    return [out]
+    text = "\n".join(L) + "\n"
+
+    # Always write a profile-stamped report. `results/comparison.md` is the
+    # canonical one and is refreshed ONLY by the full profile, so a quick or
+    # validation run can never overwrite the reproduction's headline report.
+    stamped = paths["results"] / f"comparison__{profile.name}.md"
+    stamped.write_text(text)
+    outputs = [stamped]
+
+    if profile.is_paper_reproduction:
+        canonical = paths["results"] / "comparison.md"
+        canonical.write_text(text)
+        outputs.append(canonical)
+        logger.info("wrote %s and %s", stamped.name, canonical.name)
+    else:
+        logger.info("wrote %s (canonical comparison.md left untouched: profile is not "
+                    "the paper reproduction)", stamped.name)
+    return outputs

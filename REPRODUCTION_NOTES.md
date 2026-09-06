@@ -189,8 +189,36 @@ Causes considered:
 | Numerical precision | **Excluded.** BLAS output is bit-identical to a non-BLAS reference. |
 | Data proxy | **Possible, partial.** USD/GBP itself is exact (FRED `DEXUSUK` matches every printed Table 1 digit), but the *dependent* series in these tests are the gold and oil proxies. |
 | Kernel standardisation (D7) | **Possible, not excluded.** It plausibly bites hardest at the median, where the marked process is smallest. |
+| σ specification (D2) | **Demonstrated partial contributor** — see below. |
 | Lags `q` of Z | **Possible, not excluded.** OUR_ASSUMPTION (q = s). |
 | QAR specification (D2/D3) | Externally resolved; a GARCH sensitivity is available. |
+
+### Experiment 06 measures how much D2 contributes
+
+The decision-F sensitivity re-runs the empirical tests with the alternative
+reading of `σ_t` — an AR(p)-GARCH(1,1) conditional scale instead of a constant —
+at k = 5 and lag 1. Of 16 cells, 14 reach the same 5% decision, and **both cells
+that change sit at τ = 0.50**, precisely where the unresolved discrepancy lives:
+
+| Direction | τ | Paper | Constant σ (D2) | GARCH σ |
+|---|---|---:|---:|---:|
+| usdgbp → gold | 0.50 | 0.004 | 0.052 (no reject) | **0.025 (reject)** |
+| oil → gold | 0.50 | 0.294 | 0.058 | 0.039 |
+| usdgbp → oil | 0.50 | 0.005 | 0.356 | 0.226 |
+| gold → oil | 0.50 | 0.461 | 0.456 | 0.404 |
+
+Under the GARCH reading, `usdgbp → gold` flips to agree with the paper's rejection,
+and the mean absolute error against the paper at τ = 0.50 falls from **0.160 to
+0.139**. So D2 is not merely a candidate — it demonstrably moves the median
+results toward the paper.
+
+**We did not switch to it.** D2's resolution (constant σ) rests on the author's own
+later paper restating the same models with a constant σ, which is stronger evidence
+than "the alternative agrees better". The constant-σ specification also reproduces
+the tails perfectly (108/108), whereas the GARCH variant introduces non-zero
+p-values at τ = 0.90 where the paper prints 0.000. Choosing GARCH to close the
+median gap would trade an exact tail reproduction for a better median one, on no
+evidential basis.
 
 **Classification: UNRESOLVED.** The failure is specific and reproducible — median
 causality from USD/GBP — and three candidate causes were tested and excluded. The

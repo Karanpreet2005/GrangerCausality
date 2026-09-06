@@ -15,11 +15,21 @@ logs/*
 results/figures/*
 !results/figures/.gitkeep
 
-# Results tables and manifests ARE tracked: they are the reproduction record.
+# Result tables ARE tracked: they are the reproduction record.
 !results/tables/
-!results/.manifest/
+
+# Manifests are machine-local cache state holding absolute paths, not results.
+results/.manifest/
 
 # Copyrighted source article (Taylor & Francis). Not redistributed.
 # Place the PDF here yourself to enable the figure-digitisation stage; see paper/README.md.
 paper/*.pdf
 paper/extracted_text.txt
+# (paper/README.md and paper/paper_spec.md ARE tracked - they contain no article text)
+
+# Reduced-profile outputs are regenerable in seconds and are not the reproduction
+# record. Only __full artefacts are tracked.
+results/tables/*__quick.*
+results/tables/*__validation.*
+results/comparison__quick.md
+results/comparison__validation.md

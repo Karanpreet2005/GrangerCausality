@@ -8,11 +8,15 @@ resolutions D2/D3 and is the one used for every reproduction number.
 
 from __future__ import annotations
 
+from .ar_garch import ARGarchQAR
 from .base import QuantileEstimator
+from .koenker_xiao import KoenkerXiaoQAR
 from .location_shift import LocationShiftQAR
 
 _REGISTRY: dict[str, type[QuantileEstimator]] = {
-    "location_shift": LocationShiftQAR,
+    "location_shift": LocationShiftQAR,   # eq. (17) under D2/D3 - used for every reproduction number
+    "koenker_xiao": KoenkerXiaoQAR,       # Koenker & Xiao (2006), named in Sec. 2.1
+    "ar_garch": ARGarchQAR,               # decision-F sensitivity on D2
 }
 
 
@@ -31,4 +35,7 @@ def register_estimator(name: str, cls: type[QuantileEstimator]) -> None:
     _REGISTRY[name] = cls
 
 
-__all__ = ["QuantileEstimator", "LocationShiftQAR", "get_estimator", "register_estimator"]
+__all__ = [
+    "QuantileEstimator", "LocationShiftQAR", "KoenkerXiaoQAR", "ARGarchQAR",
+    "get_estimator", "register_estimator",
+]

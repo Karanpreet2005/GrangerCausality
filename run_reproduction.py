@@ -34,13 +34,15 @@ from config.base import (                                           # noqa: E402
 )
 from qgc.runtime import Manifest, get_logger, stage_key             # noqa: E402
 
-STAGES = ("check", "data", "empirical", "mc", "supwald", "figures", "compare")
+STAGES = ("check", "data", "empirical", "sensitivity", "mc", "supwald",
+          "figures", "compare")
 
 #: Rough single-core cost per 1000 replications, measured on an Apple M4.
 RUNTIME_HINT = {
     "check": "seconds",
     "data": "seconds (downloads on first run)",
     "empirical": "~30 s",
+    "sensitivity": "~5 min (full profile only)",
     "mc": "~8 min single core, ~1 min on 8 workers",
     "supwald": "~155 min single core, ~19 min on 8 workers",
     "figures": "~1 min",
@@ -83,6 +85,11 @@ def stage_empirical(profile, paths, logger) -> list[Path]:
     return out + exp03_quantile_causality.run(profile, paths, logger)
 
 
+def stage_sensitivity(profile, paths, logger) -> list[Path]:
+    from qgc.experiments import exp06_sigma_sensitivity
+    return exp06_sigma_sensitivity.run(profile, paths, logger)
+
+
 def stage_mc(profile, paths, logger) -> list[Path]:
     from qgc.experiments import exp04_monte_carlo
     return exp04_monte_carlo.run(profile, paths, logger)
@@ -105,6 +112,7 @@ def stage_compare(profile, paths, logger) -> list[Path]:
 
 STAGE_FUNCS = {
     "check": stage_check, "data": stage_data, "empirical": stage_empirical,
+    "sensitivity": stage_sensitivity,
     "mc": stage_mc, "supwald": stage_supwald, "figures": stage_figures,
     "compare": stage_compare,
 }
@@ -114,13 +122,14 @@ STAGE_FIELDS = {
     "check": (),
     "data": (),
     "empirical": ("empirical_lags", "k_values", "tau_n", "tau_lo", "tau_hi"),
+    "sensitivity": ("run_sigma_sensitivity", "empirical_lags", "tau_n", "tau_lo", "tau_hi"),
     "mc": ("mc_replications", "c_grid", "mc_T", "k_values", "dgps", "qar_orders",
            "tau_n", "tau_lo", "tau_hi", "alpha"),
     "supwald": ("mc_replications", "c_grid", "mc_T", "dgps", "qar_orders",
                 "tau_n", "tau_lo", "tau_hi", "alpha"),
     "figures": ("mc_replications", "c_grid", "mc_T", "k_values", "dgps", "qar_orders"),
     "compare": ("mc_replications", "c_grid", "mc_T", "k_values", "dgps",
-                "qar_orders", "empirical_lags"),
+                "qar_orders", "empirical_lags", "run_sigma_sensitivity"),
 }
 
 
@@ -135,8 +144,9 @@ def stage_profile(profile, stage: str) -> dict:
 # A stage's inputs include the upstream stages it depends on.
 DEPENDS = {
     "check": (), "data": ("check",), "empirical": ("data",),
+    "sensitivity": ("data",),
     "mc": ("check",), "supwald": ("check",),
-    "figures": ("mc", "supwald"), "compare": ("empirical", "figures"),
+    "figures": ("mc", "supwald"), "compare": ("empirical", "sensitivity", "figures"),
 }
 
 
@@ -161,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
     paths = build_paths()
     paths["logs"].mkdir(parents=True, exist_ok=True)
     logger = get_logger("qgc", paths["logs"])
-    manifest = Manifest(MANIFEST_DIR)
+    manifest = Manifest(MANIFEST_DIR, profile.name)
 
     requested = [s.strip() for s in args.stages.split(",") if s.strip()]
     unknown = set(requested) - set(STAGES)

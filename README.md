@@ -11,7 +11,7 @@ equations, and every module docstring names the equation or section it implement
 
 ```bash
 make setup          # create .venv, install pinned dependencies
-make test           # 29 tests, ~17 s
+make test           # 32 tests, ~8 s
 make quick          # smoke run, ~5 min  (NOT a reproduction)
 make full           # full reproduction at the paper's settings
 ```
@@ -93,7 +93,7 @@ python run_reproduction.py --full         # or: make full
 Useful flags:
 
 ```bash
---stages data,empirical,mc,supwald,figures,compare   # run a subset
+--stages data,empirical,sensitivity,mc,supwald,figures,compare   # run a subset
 --force mc            # invalidate one stage; --force all for everything
 --workers 8           # process pool size
 --profile validation  # intermediate stability run
@@ -119,7 +119,7 @@ src/qgc/
   methods/supwald.py    Koenker–Machado benchmark (eq. 18)
   methods/fast_qr.py    batched quantile regression; validated against statsmodels
   simulation/dgp.py     DGPs 1–4 (eqs. 13–16)
-  experiments/          one module per table/figure
+  experiments/          one module per table/figure (06 = the decision-F σ sensitivity)
   reporting/            tables, figures, figure digitisation, comparison report
   provenance.py         every choice classified by where it came from
   _external_resolutions.py  the eight gaps D1–D8 and how each was resolved
@@ -136,8 +136,12 @@ Measured on an **Apple M4 (Mac16,12), 10 cores (4P + 6E), 16 GB**:
 | data | seconds (downloads on first run) |
 | empirical (Tables 2–4, both alignments, all k) | **30 s** |
 | mc (Figs. 1–3, 168 cells × 1,000 reps) | **321 s** on 8 workers |
-| supwald (Fig. 4, 168 cells × 1,000 reps) | **~15 min** on 8 workers |
-| test suite | 17 s |
+| sensitivity (decision F, GARCH σ) | **213 s** |
+| supwald (Fig. 4, 168 cells × 1,000 reps) | **~17 min** on 8 workers |
+| test suite (32 tests) | 8 s |
+
+The reduced profiles run end to end in **5 s** (`quick`) and **81 s** (`validation`),
+so the pipeline can be exercised before committing to the full run.
 
 Two things make this cheap enough to run on a laptop. Subsamples are contiguous
 windows, so subsample kernels are **zero-copy diagonal blocks** of the full kernel
@@ -167,7 +171,9 @@ the 3440² empirical kernel, ≈95 MB.
 results/tables/*__full.csv|.md     one file per table, profile-stamped
 results/figures/figure{1..4}__full.png   our figures, paper curves overlaid
 results/figures/paper/             figures extracted from the PDF + digitised targets
-results/comparison.md              the reproduction report
+results/comparison.md              the reproduction report (full profile only;
+                                   reduced runs write comparison__<profile>.md
+                                   and cannot overwrite this file)
 logs/                              per-run logs
 ```
 
@@ -213,8 +219,17 @@ from qgc.data import DATASETS, CsvFile
 DATASETS["troster2018"].series["gold"] = CsvFile("data/raw/my_gsci_gold.csv")
 ```
 
-Estimators are pluggable too — the paper permits Koenker–Bassett, Koenker–Xiao QAR
-and CAViaR but implements none of them; see `src/qgc/methods/estimators/`.
+Estimators are pluggable. Three ship, and `register_estimator` takes your own:
+
+| Name | What it is |
+|---|---|
+| `location_shift` | eq. (17) under D2/D3 — used for **every** reproduction number |
+| `koenker_xiao` | Koenker & Xiao (2006) QAR, named in Sec. 2.1 but never implemented by the paper; every coefficient varies with τ, with rearrangement to prevent crossing |
+| `ar_garch` | AR(p)-GARCH(1,1) conditional scale — the decision-F sensitivity on D2 |
+
+```python
+res = gcq(y, z, lags=1, estimator="koenker_xiao")
+```
 
 ---
 
@@ -230,7 +245,7 @@ and [`REPRODUCTION_NOTES.md`](REPRODUCTION_NOTES.md).
 | **Table 1** (summary statistics) | **Reproduced** | 21/21 within tolerance. USD/GBP — the one series from the paper's own underlying source — matches **all 7 printed values exactly at 2 dp**. Gold and oil differ only as documented proxies. |
 | **Tables 3–4, tails and full grid** | **Reproduced exactly** | **108/108 cells**, every one printed as 0.000 and reproduced as 0.000, across τ = 0.10, τ = 0.90 and τ ∈ [0.10;0.90], all lags, all k. |
 | **Tables 3–4, the headline median result** | **Reproduced** | The paper's central empirical claim — gold↔oil causality present in the tails, absent at the median — holds in 17/18 cells (gold→oil at τ=0.50: paper 0.397, ours 0.495). |
-| **Tables 3–4, USD/GBP at τ = 0.50** | **Not reproduced** | 5/18 cells. The paper finds significant median causality from USD/GBP (p ≈ 0.006); we find borderline for gold (≈0.05) and none for oil (≈0.44). **UNRESOLVED** — `k` and alignment tested and excluded as causes. |
+| **Tables 3–4, USD/GBP at τ = 0.50** | **Not reproduced** | 5/18 cells. The paper finds significant median causality from USD/GBP (p ≈ 0.006); we find borderline for gold (≈0.05) and none for oil (≈0.44). **UNRESOLVED** — `k` and alignment tested and *excluded*; the σ specification (D2) is a *demonstrated* partial contributor (experiment 06: the GARCH reading flips usdgbp→gold to agree and cuts mean median error from 0.160 to 0.139), but we did not adopt it, since D2 rests on the author's own later paper and the constant-σ reading is what reproduces the tails exactly. |
 | **Table 2** (mean causality) | **Reproduced only under a data-alignment shift** | 4/12 at face value, **12/12** with a one-row gold offset (resolution D8). Diagnosed, reported, *not* silently adopted. |
 | **Figures 1–3** (S_T size and power) | **Reproduced, approximately** | Against 138 QC-passing digitised points: median absolute difference **0.024** (0.021 excluding 9 points where our curve saturates at 1.0 and the tracer under-reads — a known digitiser limitation that biases *against* us). Size → nominal as T grows (T=100: 0.068, T=500: 0.054); power monotone in c in 72/72 series. |
 | **Figure 4** (S_T beats Sup-Wald in power) | **Not reproduced** | S_T is more powerful at only 15/72 design points. Our Sup-Wald is correctly sized (0.044) where the paper's is undersized (0.026), which mechanically raises its power. **UNRESOLVED**, partly attributable to the unspecified Sup-Wald critical values. Notably, the paper's *own* digitised curves support its claim only at small c (5/7 at c=0.01, 0/5 at c=0.50). |

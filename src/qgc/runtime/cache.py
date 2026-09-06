@@ -59,8 +59,11 @@ def stage_key(stage: str, profile: Any, inputs: dict[str, Any] | None = None,
 class Manifest:
     """Reads and writes results/.manifest/<stage>.json."""
 
-    def __init__(self, manifest_dir: Path):
-        self.dir = Path(manifest_dir)
+    def __init__(self, manifest_dir: Path, profile_name: str | None = None):
+        # Scoped per profile: stage records are keyed by stage name, so without
+        # this a `quick` run would overwrite the `full` run's record of what ran
+        # and how long it took.
+        self.dir = Path(manifest_dir) / profile_name if profile_name else Path(manifest_dir)
         self.dir.mkdir(parents=True, exist_ok=True)
 
     def path(self, stage: str) -> Path:

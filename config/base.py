@@ -70,7 +70,13 @@ EMPIRICAL_ALIGNMENTS = {
 # run on the empirical tables only.
 PRIMARY_ESTIMATOR = "location_shift"
 SIGMA_SENSITIVITY_ESTIMATOR = "ar_garch"
-SIGMA_SENSITIVITY_K = 3          # single k keeps the sensitivity cheap
+# k = 5 rather than 3: subsample windows must be long enough to identify a
+# GARCH(1,1). At T = 3,440 that is m = 128 observations for k = 5, against only
+# 76 for k = 3, which is too short to estimate a volatility model on.
+SIGMA_SENSITIVITY_K = 5
+# Restricted to one lag: the question is whether resolution D2 changes the
+# conclusions, not to re-tabulate everything under a second specification.
+SIGMA_SENSITIVITY_LAGS = (1,)
 
 # ------------------------------------------------------------------ execution
 def default_workers() -> int:
