@@ -137,6 +137,20 @@ dashed T=100 curve at a steep segment. Flagged points keep their raw traced valu
 and are marked `valid = False` — nothing is replaced with a better-agreeing number,
 and the rule is never applied to our computed results.
 
+### A known limitation: saturated curve segments
+
+Frame removal strips any pixel row covering more than 40% of the plot box width.
+That correctly removes the axes and the dashed 5% reference line, but it also
+removes a curve that has **saturated at 1.0**, because such a curve lies along the
+top of the box. Where a rejection frequency has reached 1.0, the tracer therefore
+reads the last non-saturated point instead, biasing the traced value *downwards*.
+
+This is visible in the DGP3 panels, whose curves reach 1.0 very early. It inflates
+the reported mean absolute difference against our own results, and it does so in a
+direction that makes our reproduction look *worse*, not better. It is left in place
+and reported rather than corrected, since correcting it would improve apparent
+agreement and the QC rules were fixed in advance.
+
 Digitised values are therefore **approximate targets with a stated failure rate**,
 not printed numbers. Claims resting on them are weaker than claims resting on
 Tables 1–4.
