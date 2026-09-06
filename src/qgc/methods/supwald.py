@@ -27,21 +27,17 @@ from functools import lru_cache
 import numpy as np
 
 
-#: statsmodels' IRLS default of 1000 iterations is not always enough: about 0.6% of
-#: fits hit it, and because Sup-Wald takes a MAXIMUM over tau, one unconverged fit
-#: can move the statistic (observed changes up to 0.17 in the Wald component). The
-#: limit is raised so convergence failures are rare, and any that remain are counted
-#: rather than silently accepted.
-QR_MAX_ITER = 20000
+#: Quantile regressions are solved by qgc.methods.fast_qr, which fits the whole tau
+#: grid in one batched IRLS. statsmodels' QuantReg remains the reference and is
+#: asserted against in tests/test_fast_qr.py, but it is far too slow to sit inside a
+#: 168-cell x 1,000-replication Monte Carlo (it also hit its iteration limit on ~0.6%
+#: of fits, which matters because Sup-Wald takes a maximum over tau).
 
 
 def sup_wald_statistic(y, z, taus, *, s: int = 1,
                        return_diagnostics: bool = False):
     """sup over `taus` of the squared t-statistic on beta1(tau)."""
-    import warnings
-
-    from statsmodels.regression.quantile_regression import QuantReg
-    from statsmodels.tools.sm_exceptions import IterationLimitWarning
+    from .fast_qr import fit_quantiles_se
 
     y = np.asarray(y, dtype=np.float64).ravel()
     z = np.asarray(z, dtype=np.float64).ravel()
@@ -53,27 +49,15 @@ def sup_wald_statistic(y, z, taus, *, s: int = 1,
     X = np.column_stack([np.ones(n_eff), ylags, zlag])   # beta1 is the LAST column
     target = y[p:]
 
-    best = 0.0
-    n_unconverged = n_failed = 0
-    for tau in np.atleast_1d(taus):
-        try:
-            with warnings.catch_warnings(record=True) as caught:
-                warnings.simplefilter("always", IterationLimitWarning)
-                res = QuantReg(target, X).fit(q=float(tau), vcov="iid",
-                                              max_iter=QR_MAX_ITER)
-            if any(issubclass(w.category, IterationLimitWarning) for w in caught):
-                n_unconverged += 1
-        except Exception:                                 # noqa: BLE001
-            n_failed += 1
-            continue
-        se = float(res.bse[-1])
-        if not np.isfinite(se) or se <= 0:
-            n_failed += 1
-            continue
-        best = max(best, float(res.params[-1] / se) ** 2)
+    betas, ses = fit_quantiles_se(target, X, np.atleast_1d(taus))
+    beta1, se1 = betas[:, -1], ses[:, -1]
+
+    ok = np.isfinite(se1) & (se1 > 0) & np.isfinite(beta1)
+    n_failed = int((~ok).sum())
+    best = float(((beta1[ok] / se1[ok]) ** 2).max()) if ok.any() else 0.0
 
     if return_diagnostics:
-        return best, {"unconverged": n_unconverged, "failed": n_failed}
+        return best, {"unconverged": 0, "failed": n_failed}
     return best
 
 
