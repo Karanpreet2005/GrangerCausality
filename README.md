@@ -215,3 +215,44 @@ DATASETS["troster2018"].series["gold"] = CsvFile("data/raw/my_gsci_gold.csv")
 
 Estimators are pluggable too — the paper permits Koenker–Bassett, Koenker–Xiao QAR
 and CAViaR but implements none of them; see `src/qgc/methods/estimators/`.
+
+---
+
+## 12. Final reproducibility assessment
+
+Run at the `full` profile: 168 Monte Carlo cells × 1,000 replications, 3,440
+empirical observations, all three subsample constants, both data alignments.
+29/29 tests pass. Full detail in [`results/comparison.md`](results/comparison.md)
+and [`REPRODUCTION_NOTES.md`](REPRODUCTION_NOTES.md).
+
+| Target | Outcome | Evidence |
+|---|---|---|
+| **Table 1** (summary statistics) | **Reproduced** | 21/21 within tolerance. USD/GBP — the one series from the paper's own underlying source — matches **all 7 printed values exactly at 2 dp**. Gold and oil differ only as documented proxies. |
+| **Tables 3–4, tails and full grid** | **Reproduced exactly** | **108/108 cells**, every one printed as 0.000 and reproduced as 0.000, across τ = 0.10, τ = 0.90 and τ ∈ [0.10;0.90], all lags, all k. |
+| **Tables 3–4, the headline median result** | **Reproduced** | The paper's central empirical claim — gold↔oil causality present in the tails, absent at the median — holds in 17/18 cells (gold→oil at τ=0.50: paper 0.397, ours 0.495). |
+| **Tables 3–4, USD/GBP at τ = 0.50** | **Not reproduced** | 5/18 cells. The paper finds significant median causality from USD/GBP (p ≈ 0.006); we find borderline for gold (≈0.05) and none for oil (≈0.44). **UNRESOLVED** — `k` and alignment tested and excluded as causes. |
+| **Table 2** (mean causality) | **Reproduced only under a data-alignment shift** | 4/12 at face value, **12/12** with a one-row gold offset (resolution D8). Diagnosed, reported, *not* silently adopted. |
+| **Figures 1–3** (S_T size and power) | **Reproduced, approximately** | Against 138 QC-passing digitised points: median absolute difference **0.024**, 104/138 within the traced band. Size → nominal as T grows (T=100: 0.068, T=500: 0.054); power monotone in c in 72/72 series. |
+| **Figure 4** (S_T beats Sup-Wald in power) | **Not reproduced** | S_T is more powerful at only 15/72 design points. Our Sup-Wald is correctly sized (0.044) where the paper's is undersized (0.026), which mechanically raises its power. **UNRESOLVED**, partly attributable to the unspecified Sup-Wald critical values. Notably, the paper's *own* digitised curves support its claim only at small c (5/7 at c=0.01, 0/5 at c=0.50). |
+
+### Overall
+
+**The method reproduces; the empirical headline reproduces; two secondary claims do
+not.**
+
+The test statistic, subsampling scheme and quantile model were recovered from the
+paper alone and are independently validated: all nine printed subsample sizes match
+exactly, the closed-form kernel matches numerical integration over ω, and empirical
+size under the null lands at 0.05. Given that **no author code or data exists**, and
+that both commodity series had to be rebuilt from free proxies, the empirical
+agreement — 108/108 tail cells exact — is strong.
+
+What does not reproduce is stated plainly rather than explained away: median
+causality from USD/GBP (Tables 3–4), the mean-causality directions without a data
+alignment shift (Table 2), and the Sup-Wald power comparison (Figure 4). Each is
+classified `UNRESOLVED` with the candidate causes that were tested and excluded.
+
+**No parameter, tolerance or critical value was tuned to improve agreement with the
+paper.** Where a choice had to be made that the paper does not determine, it is
+recorded in `src/qgc/provenance.py` as `OUR_ASSUMPTION` and, where feasible, both
+alternatives are reported.

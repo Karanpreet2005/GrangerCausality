@@ -38,7 +38,7 @@ def run(profile, paths, logger) -> list[Path]:
     dig = paths["figures"] / "paper" / "digitized_targets.csv"
     if dig.exists():
         paper_fig = pd.read_csv(dig)
-        paper_fig = paper_fig[paper_fig["reliable"]]
+        paper_fig = paper_fig[paper_fig["valid"]]   # QC-passing points only
 
     L: list[str] = []
     add = L.append

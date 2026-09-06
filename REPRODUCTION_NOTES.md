@@ -150,22 +150,80 @@ the 5% level. **All 108 tail and full-grid cells (τ = 0.10, τ = 0.90, τ ∈
 [0.10;0.90]) reproduce exactly**, every one printed as 0.000. All 14 disagreements
 sit at τ = 0.50.
 
+The 14 disagreements are **not spread across the median row** — they are
+concentrated almost entirely in the USD/GBP directions:
+
+| Direction | Cells agreeing at τ = 0.50 | Paper mean p | Ours mean p |
+|---|---|---:|---:|
+| gold → oil | 9/9 | 0.397 | 0.495 |
+| oil → gold | 8/9 | 0.294 | 0.230 |
+| usdgbp → gold | 5/9 | 0.006 | 0.050 |
+| usdgbp → oil | **0/9** | 0.006 | 0.439 |
+
+So **the paper's headline median result reproduces**: the gold/oil pair shows
+causality in the tails and none at the median, 17/18 cells. What does not
+reproduce is the paper's finding of *significant* median causality running from
+USD/GBP to both commodities (p ≈ 0.004–0.007), where we find borderline evidence
+for gold (p ≈ 0.05) and none at all for oil (p ≈ 0.44).
+
 Causes considered:
 
 | Candidate | Verdict |
 |---|---|
-| Data proxy (gold/oil source) | Contributes. τ = 0.50 is where the median regression is most sensitive to the exact series. |
-| Alignment (D8) | Tested. The offset alignment *worsens* Tables 3–4 (123/144), so it does not explain these. |
-| Subsample constant `k` | Tested; all of k ∈ {3,4,5} reported. The τ = 0.50 disagreements persist across all three, so `k` is not the cause. |
-| Lags `q` of Z | OUR_ASSUMPTION (q = s). Not excluded. |
-| Kernel standardisation (D7) | Not excluded; plausibly matters most at the median, where the marked process is smallest. |
+| Subsample constant `k` | **Excluded.** Agreement is 8/12, 7/12, 7/12 for k = 3, 4, 5 — essentially identical, so the disagreement is not a `k` artefact. |
+| Alignment (D8) | **Excluded.** The offset alignment is *worse* at τ = 0.50 (15/36 against 22/36), so it does not explain these. |
+| Numerical precision | **Excluded.** BLAS output is bit-identical to a non-BLAS reference. |
+| Data proxy | **Possible, partial.** USD/GBP itself is exact (FRED `DEXUSUK` matches every printed Table 1 digit), but the *dependent* series in these tests are the gold and oil proxies. |
+| Kernel standardisation (D7) | **Possible, not excluded.** It plausibly bites hardest at the median, where the marked process is smallest. |
+| Lags `q` of Z | **Possible, not excluded.** OUR_ASSUMPTION (q = s). |
 | QAR specification (D2/D3) | Externally resolved; a GARCH sensitivity is available. |
-| Numerical precision | Excluded. BLAS output is bit-identical to a non-BLAS reference. |
 
-**Classification: UNRESOLVED.** The most likely contributors are the gold/oil proxy
-and D7, but neither is demonstrated. No parameter was adjusted to close the gap.
+**Classification: UNRESOLVED.** The failure is specific and reproducible — median
+causality from USD/GBP — and three candidate causes were tested and excluded. The
+remaining candidates (the gold/oil proxy, D7, and `q`) are consistent with it but
+none is demonstrated. No parameter was adjusted to close the gap.
 
 ---
+
+## 6b. The Sup-Wald power comparison (Figure 4) — NOT reproduced
+
+The paper states (Sec. 4) that "the subsampling S_T test considerably outperforms
+the Sup-Wald procedure in terms of power". **We do not reproduce this**, and the
+reason is specific.
+
+| Quantity | Paper (digitised) | Ours |
+|---|---:|---:|
+| Sup-Wald size at c = 0 | 0.026 | 0.044 |
+| S_T size at c = 0 | ~0.05 | 0.060 |
+| S_T more powerful than Sup-Wald (c > 0) | 19/40 points | 15/72 points |
+
+Two separate observations:
+
+1. **Our Sup-Wald is correctly sized where the paper's is undersized** (0.044 vs
+   0.026 against a 0.05 nominal level). A test that under-rejects under the null
+   also under-rejects under the alternative, so an undersized Sup-Wald will look
+   less powerful. This traces directly to an `OUR_ASSUMPTION`: the paper never
+   says which Sup-Wald critical values it used, so we simulate them from the
+   limiting law (`sup_τ B(τ)²/(τ(1−τ))`, giving 8.741). A more conservative
+   tabulated value would reproduce the paper's undersizing.
+
+2. **The paper's own figures do not support the blanket claim.** Comparing its
+   Fig. 1–3 curves against its Fig. 4 curves, digitised the same way, S_T is
+   higher only at small `c` and Sup-Wald overtakes as `c` grows:
+
+   | c | 0.01 | 0.03 | 0.06 | 0.12 | 0.24 | 0.50 |
+   |---|---|---|---|---|---|---|
+   | S_T higher at | 5/7 | 4/6 | 6/8 | 3/7 | 1/7 | 0/5 |
+
+   Averaged over the design the two are nearly level (T=100: 0.318 vs 0.331;
+   T=500: 0.498 vs 0.519). The paper's claim holds near the null, which is where
+   its DGPs concentrate, but not across the grid.
+
+**Classification: UNRESOLVED, partially attributable to `OUR_ASSUMPTION`.** A
+clean test would need a *size-adjusted* power comparison — calibrating both tests
+to the same empirical size before comparing power — which the paper does not do
+and which our stored rejection rates do not permit after the fact. We did not
+adjust our critical values to recover the paper's conclusion.
 
 ## 7. Computational setup and measured runtimes
 

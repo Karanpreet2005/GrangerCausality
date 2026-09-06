@@ -76,7 +76,7 @@ def run(profile, paths, logger) -> list[Path]:
     paper_dir = paths["figures"] / "paper"
     try:
         paper = pd.DataFrame(trace_all(paths["paper_pdf"], paper_dir))
-        paper = paper[paper["reliable"]]
+        paper = paper[paper["valid"]]      # spread AND monotonicity QC, not spread alone
         paper.to_csv(paper_dir / "digitized_targets.csv", index=False)
         logger.info("digitised %d reliable points from the paper's figures", len(paper))
     except Exception as exc:                                  # noqa: BLE001
