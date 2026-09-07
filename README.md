@@ -233,6 +233,21 @@ res = gcq(y, z, lags=1, estimator="koenker_xiao")
 
 ---
 
+## 11b. Independent robustness check (different method, R)
+
+While researching prior work, an R package (`mqqcause`, CRAN) surfaced that looked
+like it might implement Troster's test. **It does not** — it implements Sim & Zhou
+(2015) quantile-on-quantile regression with a Bonferroni-corrected aggregate test,
+a genuinely different method. See [`robustness/README.md`](robustness/README.md)
+for the full technical comparison.
+
+Run as an independent cross-check on the identical data: it **confirms** the
+USD/GBP causality finding (surviving a much harsher multiple-testing correction
+than Troster's test requires), and **does not confirm** the gold↔oil causality
+that Troster's test finds significant at the full quantile grid. Presented as a
+genuine, unresolved disagreement between two legitimate methods — not folded into
+the reproduction's own results, and not explained away.
+
 ## 12. Final reproducibility assessment
 
 Run at the `full` profile: 168 Monte Carlo cells × 1,000 replications, 3,440

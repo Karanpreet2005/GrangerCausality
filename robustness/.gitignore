@@ -1,0 +1,3 @@
+# The R package library is large (~150 MB) and fully reinstallable via
+# run_qqcause_robustness.R's first line. Never tracked.
+rlib/

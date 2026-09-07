@@ -267,6 +267,22 @@ to the same empirical size before comparing power — which the paper does not d
 and which our stored rejection rates do not permit after the fact. We did not
 adjust our critical values to recover the paper's conclusion.
 
+## 6c. A supplementary robustness check (not part of the reproduction)
+
+`robustness/` runs a second, independently-coded, peer-reviewed method — Sim &
+Zhou (2015) quantile-on-quantile regression via the CRAN package `mqqcause` — on
+the identical empirical data, purely as an out-of-band sanity check. It is
+methodologically distinct from Troster's test (2D quantile grid vs. 1D, local
+kernel weighting vs. parametric QAR, Bonferroni-corrected max-t vs. subsampling
+CvM) and is not used anywhere in the comparison against the paper.
+
+Result: it confirms the USD/GBP-driven causality (surviving a stricter multiple-
+testing correction than Troster's own test needs to clear) and does not confirm
+the gold↔oil causality that Troster's `S_T` finds at the full grid. See
+`robustness/README.md` for the full writeup, including why this disagreement is
+expected given how different the two aggregate tests are, and is reported rather
+than resolved.
+
 ## 7. Computational setup and measured runtimes
 
 Hardware: **Apple M4 (Mac16,12), 10 cores (4 performance + 6 efficiency), 16 GB**.

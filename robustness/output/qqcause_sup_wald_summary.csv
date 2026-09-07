@@ -1,0 +1,5 @@
+"direction","sup_t","at_y_quantile","at_x_quantile","bonferroni_p","reject_5pct"
+"oil_to_gold",3.12931949094847,0.95,0.45,0.632514190963666,FALSE
+"usdgbp_to_gold",3.84871841429166,0.55,0.25,0.0428642016512071,TRUE
+"gold_to_oil",3.42651187337604,0.25,0.9,0.220710718441076,FALSE
+"usdgbp_to_oil",5.00556788740037,0.15,0.95,0.000201068257225516,TRUE
