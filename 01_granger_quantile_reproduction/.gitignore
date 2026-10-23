@@ -1,0 +1,30 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# Raw downloads and derived artefacts are reproducible from source; keep the tree light.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+logs/*
+!logs/.gitkeep
+results/*/figures/
+results/paper_reference/
+
+# Manifests are machine-local cache state holding absolute paths, not results.
+results/.manifest/
+
+# Copyrighted source article (Taylor & Francis). Not redistributed.
+# Place the PDF here yourself to enable the figure-digitisation stage; see docs/paper/README.md.
+docs/paper/*.pdf
+docs/paper/extracted_text.txt
+# (docs/paper/README.md and docs/paper/paper_spec.md ARE tracked - they contain no article text)
+
+# Reduced-profile outputs are regenerable in seconds and are not the reproduction
+# record. Only results/full/ is tracked.
+results/quick/
+results/validation/
